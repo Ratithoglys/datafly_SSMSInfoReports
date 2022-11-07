@@ -38,7 +38,7 @@
         <Top>1.10272cm</Top>
         <Left>0.11971cm</Left>
         <Height>0cm</Height>
-        <Width>18.41289cm</Width>
+        <Width>23.34075cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -86,7 +86,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>5.62256cm</Width>
+              <Width>7.86255cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.09403cm</Width>
@@ -95,13 +95,13 @@
               <Width>3.1548cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.33474cm</Width>
+              <Width>3.01234cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.5838cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.62348cm</Width>
+              <Width>4.60753cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.97326cm</Width>
@@ -480,7 +480,9 @@
                                       <Y>=sum(clng(Fields!Log_Size__KB_.Value/1024))</Y>
                                     </ChartDataPointValues>
                                     <ChartDataLabel>
-                                      <Style />
+                                      <Style>
+                                        <Format>n2</Format>
+                                      </Style>
                                       <UseValueAsLabel>true</UseValueAsLabel>
                                       <Visible>true</Visible>
                                     </ChartDataLabel>
@@ -700,7 +702,7 @@
                           <rd:DesignerMode>DataBar</rd:DesignerMode>
                           <DataSetName>DatabasesInfo</DataSetName>
                           <Height>0.6cm</Height>
-                          <Width>2.33474cm</Width>
+                          <Width>3.01234cm</Width>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -732,6 +734,7 @@
                               <Value>=Fields!Log_Used__KB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1042,7 +1045,7 @@
                           <rd:DesignerMode>DataBar</rd:DesignerMode>
                           <DataSetName>DatabasesInfo</DataSetName>
                           <Height>0.6cm</Height>
-                          <Width>2.62348cm</Width>
+                          <Width>4.60753cm</Width>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1131,7 +1134,7 @@
         <Top>6.96519cm</Top>
         <Left>0.17215cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.38667cm</Width>
+        <Width>23.28831cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -1183,7 +1186,10 @@
               <Width>0.97167cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.3646cm</Width>
+              <Width>1.64205cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>4.57176cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.79713cm</Width>
@@ -1221,6 +1227,9 @@
                   <CellContents>
                     <Textbox Name="Textbox3">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!Database_Name.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -1229,6 +1238,7 @@
                               <Value>Database Name</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1261,6 +1271,7 @@
                               <Value>ID</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1285,14 +1296,18 @@
                   <CellContents>
                     <Textbox Name="Textbox19">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!DB_Compatibility_Level.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>DB Compat. Level</Value>
+                              <Value>Compat. level</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1300,6 +1315,42 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox16</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox13">
+                      <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!collation_name.Value</SortExpression>
+                      </UserSort>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Collation</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox13</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1325,6 +1376,7 @@
                               <Value>Page Verify</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1354,9 +1406,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>is auto create stats on</Value>
+                              <Value>stats auto create</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1386,9 +1439,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>is auto update stats on</Value>
+                              <Value>stats auto update</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1418,9 +1472,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>is auto update stats async on</Value>
+                              <Value>stats udate async</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1450,9 +1505,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>is parameterization forced</Value>
+                              <Value>parameterization forced</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1482,9 +1538,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>snapshot isolation state desc</Value>
+                              <Value>snapshot isolation</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1514,9 +1571,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>is read committed snapshot on</Value>
+                              <Value>read committed snapshot</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1546,9 +1604,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>is auto close on</Value>
+                              <Value>auto close</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1578,9 +1637,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>is auto shrink on</Value>
+                              <Value>auto shrink</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1698,6 +1758,7 @@
                               <Value>=Fields!DB_Compatibility_Level.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Color>=iif(Fields!DB_Compatibility_Level.Value=Fields!servercompat.Value,"Black","Red")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1705,6 +1766,39 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>DB_Compatibility_Level</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="collation_name">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!collation_name.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <Color>=iif(Fields!collation_name.Value=Fields!servercollation.Value,"Black","Maroon")</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>collation_name</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1894,7 +1988,7 @@
                               <Value>=Fields!snapshot_isolation_state_desc.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=IIf(Fields!snapshot_isolation_state_desc.Value="ON","Blue","Black")</Color>
+                                <Color>=IIf(Fields!snapshot_isolation_state_desc.Value="ON" And Not (Fields!Database_Name.Value = "master" Or Fields!Database_Name.Value = "msdb") ,"Maroon","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1927,7 +2021,7 @@
                               <Value>=Fields!is_read_committed_snapshot_on.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=IIf(Fields!is_read_committed_snapshot_on.Value=True,"Blue","Black")</Color>
+                                <Color>=IIf(Fields!is_read_committed_snapshot_on.Value=True,"Maroon","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2032,6 +2126,7 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -2048,7 +2143,7 @@
         <Top>2.06846cm</Top>
         <Left>0.14593cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.46532cm</Width>
+        <Width>23.31453cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -2128,7 +2223,7 @@
         <Top>9.48281cm</Top>
         <Left>0.19836cm</Left>
         <Height>0cm</Height>
-        <Width>18.41289cm</Width>
+        <Width>23.2621cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -2145,7 +2240,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Last full backup history</Value>
+                <Value>Last full &amp; diff backup history</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>Underline</TextDecoration>
@@ -2175,16 +2270,22 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>5.06543cm</Width>
+              <Width>7.86255cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.33543cm</Width>
+              <Width>2.35641cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>7.93083cm</Width>
+              <Width>1.0124cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.99729cm</Width>
+              <Width>1.37125cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>10.06424cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.62146cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -2259,6 +2360,72 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox11">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>type</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox11</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox17">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>device</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox17</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox354">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -2292,14 +2459,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox356">
+                    <Textbox Name="Textbox15">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>device type</Value>
+                              <Value>file</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -2309,7 +2476,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox356</rd:DefaultName>
+                      <rd:DefaultName>Textbox15</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -2373,7 +2540,7 @@
                               <Value>=Fields!backup_date.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <Color>=iif(Fields!backup_date.Value &lt; DateAdd("d",-3,now),"Red","Black")</Color>
+                                <Color>=Fields!color.Value</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2381,6 +2548,72 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>backup_date</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="type">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!type.Value</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <Color>=Fields!colordevice.Value</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>type</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="device1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!device.Value</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <Color>=Fields!colordevice.Value</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>device1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -2428,14 +2661,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="device_type">
+                    <Textbox Name="position">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!device_type.Value</Value>
+                              <Value>=Fields!position.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                               </Style>
@@ -2444,7 +2677,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>device_type</rd:DefaultName>
+                      <rd:DefaultName>position</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -2468,6 +2701,8 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -2484,7 +2719,7 @@
         <Top>10.40031cm</Top>
         <Left>0.17215cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.32898cm</Width>
+        <Width>23.28831cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -2529,9 +2764,9 @@
       </Textbox>
       <Line Name="Line11">
         <Top>15.06747cm</Top>
-        <Left>0.19836cm</Left>
+        <Left>0.20848cm</Left>
         <Height>0cm</Height>
-        <Width>18.41289cm</Width>
+        <Width>23.25198cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -2578,7 +2813,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>5.99876cm</Width>
+              <Width>7.94263cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>3.99253cm</Width>
@@ -2749,7 +2984,7 @@
         <Top>16.02024cm</Top>
         <Left>0.20234cm</Left>
         <Height>1.2cm</Height>
-        <Width>9.99129cm</Width>
+        <Width>11.93516cm</Width>
         <ZIndex>14</ZIndex>
         <Style>
           <Border>
@@ -2762,16 +2997,16 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>6.33051cm</Width>
+              <Width>7.86256cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>3.304cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>4.27957cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.30281cm</Width>
+              <Width>7.84219cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -3027,7 +3262,9 @@
                                       <Y>=Fields!Total_Size__MB_.Value</Y>
                                     </ChartDataPointValues>
                                     <ChartDataLabel>
-                                      <Style />
+                                      <Style>
+                                        <Format>n2</Format>
+                                      </Style>
                                       <UseValueAsLabel>true</UseValueAsLabel>
                                       <Visible>true</Visible>
                                     </ChartDataLabel>
@@ -3723,7 +3960,7 @@
                           <rd:DesignerMode>DataBar</rd:DesignerMode>
                           <DataSetName>DatabasesStorage</DataSetName>
                           <Height>0.6cm</Height>
-                          <Width>5.30281cm</Width>
+                          <Width>7.84219cm</Width>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -3829,6 +4066,7 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>File_Name</rd:DefaultName>
+                      <ToolTip>=Fields!Physical_Name.Value</ToolTip>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -4180,7 +4418,7 @@
                           <rd:DesignerMode>DataBar</rd:DesignerMode>
                           <DataSetName>DatabasesStorage</DataSetName>
                           <Height>0.51167cm</Height>
-                          <Width>5.30281cm</Width>
+                          <Width>7.84219cm</Width>
                           <Style>
                             <Border>
                               <Color>White</Color>
@@ -4256,7 +4494,7 @@
         <Top>4.22123cm</Top>
         <Left>0.17214cm</Left>
         <Height>1.71167cm</Height>
-        <Width>18.41289cm</Width>
+        <Width>23.28832cm</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
@@ -4302,7 +4540,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>3.85905cm</Width>
+              <Width>7.94661cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.5cm</Width>
@@ -4311,10 +4549,10 @@
               <Width>2.0156cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>7.93083cm</Width>
+              <Width>9.52013cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.99729cm</Width>
+              <Width>1.27976cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -4462,7 +4700,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>device type</Value>
+                              <Value>device</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -4503,7 +4741,7 @@
                               <Value>=Fields!database_name.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <Color>=iif(Fields!backup_date.Value is nothing and Fields!recovery_model_desc.Value &lt;&gt; "SIMPLE", "Red","Black")</Color>
+                                <Color>=iif(Fields!backup_date.Value is nothing and Fields!recovery_model_desc.Value &lt;&gt; "SIMPLE" and Fields!database_name.Value &lt;&gt; "model", "Red","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4536,7 +4774,7 @@
                               <Value>=Fields!recovery_model_desc.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <Color>=iif(Fields!backup_date.Value is nothing and Fields!recovery_model_desc.Value &lt;&gt; "SIMPLE", "Red","Black")</Color>
+                                <Color>=iif(Fields!backup_date.Value is nothing and Fields!recovery_model_desc.Value &lt;&gt; "SIMPLE" and Fields!database_name.Value &lt;&gt; "model", "Red","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4681,7 +4919,7 @@
         <Top>12.55309cm</Top>
         <Left>0.19836cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.30277cm</Width>
+        <Width>23.2621cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -4694,7 +4932,7 @@
     <Height>17.22024cm</Height>
     <Style />
   </Body>
-  <Width>19cm</Width>
+  <Width>23.64567cm</Width>
   <Page>
     <PageHeader>
       <Height>2.54cm</Height>
@@ -4706,7 +4944,7 @@
           <Value>SQL_short</Value>
           <Sizing>FitProportional</Sizing>
           <Top>0.15215in</Top>
-          <Left>5.16457in</Left>
+          <Left>6.95031in</Left>
           <Height>0.63789in</Height>
           <Width>2.16668in</Width>
           <Style>
@@ -4780,9 +5018,9 @@
         </Textbox>
         <Line Name="Line7">
           <Top>2.36361cm</Top>
-          <Left>0.14593cm</Left>
+          <Left>0.17215cm</Left>
           <Height>0cm</Height>
-          <Width>18.41289cm</Width>
+          <Width>23.28831cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -4808,7 +5046,7 @@
           <Top>0.29489cm</Top>
           <Left>0.29355cm</Left>
           <Height>0cm</Height>
-          <Width>18.41289cm</Width>
+          <Width>23.16691cm</Width>
           <Style>
             <Border>
               <Color>Orange</Color>
@@ -4915,8 +5153,8 @@
           <Source>Embedded</Source>
           <Value>Datafly</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>0.436cm</Top>
-          <Left>17.11125cm</Left>
+          <Top>0.56989cm</Top>
+          <Left>21.08869cm</Left>
           <Height>1.5cm</Height>
           <Width>1.5cm</Width>
           <ZIndex>4</ZIndex>
@@ -4931,8 +5169,8 @@
           <Source>Embedded</Source>
           <Value>MVP_Logo_Avatar_Preferred_Cyan300_CMYK_72ppi</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>0.58961cm</Top>
-          <Left>15.98167cm</Left>
+          <Top>0.7235cm</Top>
+          <Left>19.95911cm</Left>
           <Height>1.23528cm</Height>
           <Width>1.12958cm</Width>
           <ZIndex>5</ZIndex>
@@ -4949,7 +5187,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SSMSInfoReports v6.5</Value>
+                  <Value>SSMSInfoReports v7.0</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
                     <FontSize>9pt</FontSize>
@@ -4979,8 +5217,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox175</rd:DefaultName>
-          <Top>0.61239cm</Top>
-          <Left>12.10982cm</Left>
+          <Top>0.74628cm</Top>
+          <Left>16.08726cm</Left>
           <Height>1.01466cm</Height>
           <Width>3.76602cm</Width>
           <ZIndex>6</ZIndex>
@@ -5001,10 +5239,10 @@
         </Border>
       </Style>
     </PageFooter>
-    <PageHeight>29.7cm</PageHeight>
-    <PageWidth>21cm</PageWidth>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
     <InteractiveHeight>0cm</InteractiveHeight>
-    <InteractiveWidth>21cm</InteractiveWidth>
+    <InteractiveWidth>29cm</InteractiveWidth>
     <LeftMargin>1cm</LeftMargin>
     <RightMargin>1cm</RightMargin>
     <TopMargin>1cm</TopMargin>
@@ -5147,6 +5385,9 @@ SELECT
       ,db.is_auto_close_on
       ,db.is_auto_shrink_on
       ,vlf.VLFCount
+      ,db.collation_name
+      ,serverproperty(''collation'') as servercollation
+      ,CAST(LEFT(CONVERT(VARCHAR(128), SERVERPROPERTY(''ProductVersion'')), CHARINDEX(''.'', CONVERT(VARCHAR(128), SERVERPROPERTY(''ProductVersion'')))-1)+''0'' AS TINYINT) AS servercompat
   FROM
        sys.databases AS db WITH (NOLOCK) INNER JOIN sys.dm_os_performance_counters AS lu WITH (NOLOCK) 
        ON db.name = lu.instance_name
@@ -5234,6 +5475,18 @@ EXEC (@sqlcmd) ; </CommandText>
         <Field Name="VLFCount">
           <DataField>VLFCount</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="servercompat">
+          <DataField>servercompat</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="collation_name">
+          <DataField>collation_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="servercollation">
+          <DataField>servercollation</DataField>
+          <rd:TypeName>System.Object</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -5525,40 +5778,90 @@ OPTION  ( RECOMPILE );</CommandText>
     <DataSet Name="LastDBBackups">
       <Query>
         <DataSourceName>master</DataSourceName>
-        <CommandText>SELECT   CASE WHEN sd.NAME IS NULL THEN '*** Backup of non existant db : ' ELSE '' END  + COALESCE(sd.name,filebackup.database_name) AS database_name
-        ,filebackup.backup_date
-		,filebackup.type
-		,filebackup.physical_device_name
-		,filebackup.device_type
-FROM     master.sys.databases sd
-         FULL JOIN ( SELECT   bk.database_name
-                             ,MAX(bk.backup_finish_date) AS backup_date
-                             ,bm.device_type
-                     FROM     msdb..backupset bk
-                              JOIN msdb..backupmediafamily bm ON bk.media_set_id = bm.media_set_id
-                     WHERE    bk.type = 'D' 
-					 -- AND bm.device_type = 2 -- pour fichiers disque
-                     GROUP BY bk.database_name
-                             ,bm.device_type
-                   ) AS lastbackup
-         INNER JOIN ( SELECT  bk.database_name
-                       ,bk.backup_finish_date AS backup_date
-                       ,bk.type
-                       ,bm.physical_device_name
-                       ,device_type
-                FROM    msdb..backupset bk
-                        JOIN msdb..backupmediafamily bm ON bk.media_set_id = bm.media_set_id
-                WHERE   bk.type = 'D'
-              ) AS filebackup ON lastbackup.database_name = filebackup.database_name
-                                 AND lastbackup.backup_date = filebackup.backup_date
-         ON sd.name = filebackup.database_name
-where sd.name &lt;&gt; 'tempdb'
-		 ORDER BY sd.name,backup_date
-</CommandText>
+        <CommandText>SELECT CASE
+         WHEN sd.name IS NULL THEN
+              '*** Backup of non existant db : ' ELSE '' END+COALESCE(sd.name, lb.database_name) AS database_name,
+  lb.backup_finish_date AS backup_date,
+  CASE WHEN backup_sequence=2 THEN '-&gt;' ELSE '' END+Type AS type, device, is_copy_only,physical_device_name,
+  position, backup_sequence, color, colordevice
+FROM master.sys.databases sd
+     FULL JOIN (SELECT ROW_NUMBER() OVER (PARTITION BY database_name ORDER BY backup_finish_date DESC) AS backup_sequence,
+                  database_name,
+                  CASE [type] WHEN N'D' THEN N'Full' WHEN N'I' THEN N'Diff' END AS N'Type',
+                  seq.backup_finish_date,
+                  CASE
+                    WHEN device_type IN (2, 102) THEN
+                         'Disk'
+                    WHEN device_type=5 THEN
+                         'Tape'
+                    WHEN device_type=7 THEN
+                         'Virtual'
+                    WHEN device_type=9 THEN
+                         'Azure' ELSE CAST(device_type AS VARCHAR(5))END AS device, is_copy_only,
+                  physical_device_name, position,
+                  CASE
+                    WHEN (backup_finish_date&lt;DATEADD(DAY, -3, GETDATE())
+                          AND ROW_NUMBER() OVER (PARTITION BY database_name ORDER BY backup_finish_date DESC) =1) THEN
+                         'Red' ELSE 'Black' END AS color,
+                 CASE WHEN comparedevice = 1 THEN 'Red' ELSE 'Black' END AS colordevice
+                FROM ( -- principal query
+                     SELECT database_name, backup_start_date, backup_finish_date, duration, type,
+                       device_type, is_copy_only, physical_device_name, position,0 AS comparedevice
+                     FROM ( -- last full backup query
+                          SELECT bk.database_name, bk.backup_start_date, bk.backup_finish_date,
+                            DATEDIFF(SECOND, bk.backup_start_date, bk.backup_finish_date) AS duration,
+                            bk.type, bm.device_type, bk.is_copy_only, bm.physical_device_name,
+                            bk.position,
+                            ROW_NUMBER() OVER (PARTITION BY bk.database_name ORDER BY bk.backup_finish_date DESC) AS RowNumber
+                          FROM msdb..backupset bk
+                               JOIN msdb..backupmediafamily bm
+                                 ON bk.media_set_id=bm.media_set_id
+                          WHERE bk.type='D'
+                                AND DB_ID(bk.database_name) IS NOT NULL -- test d'existence de la base
+                                AND bk.is_copy_only=0) AS FB
+                     WHERE RowNumber=1
+                     UNION ALL
+                     -- Last Incremental Backup (after last full backup)
+                     SELECT IBA.database_name, IBA.backup_start_date, IBA.backup_finish_date,
+                       IBA.duration, IBA.type, IBA.device_type, IBA.is_copy_only,
+                       IBA.physical_device_name, IBA.position,CASE WHEN (LFBDevice &lt;&gt; IBA.device_type) THEN 1 ELSE 0 END AS comparedevice
+                     FROM (SELECT bk.database_name, bk.backup_start_date, bk.backup_finish_date,
+                             DATEDIFF(SECOND, bk.backup_start_date, bk.backup_finish_date) AS duration,
+                             bk.type, bm.device_type, bk.is_copy_only, bm.physical_device_name,
+                             bk.position,
+                             ROW_NUMBER() OVER (PARTITION BY bk.database_name ORDER BY bk.backup_finish_date DESC) AS RowNumber
+                           FROM msdb..backupset bk
+                                JOIN msdb..backupmediafamily bm
+                                  ON bk.media_set_id=bm.media_set_id
+                           WHERE bk.type='I'
+                                 AND DB_ID(bk.database_name) IS NOT NULL -- test if database exists
+                                 AND bk.is_copy_only=0) AS IBA
+                          JOIN (SELECT *
+                                FROM ( -- last full backup
+                                     SELECT bk.database_name, bk.backup_finish_date,bm.device_type AS LFBDevice,
+                                       ROW_NUMBER() OVER (PARTITION BY bk.database_name ORDER BY bk.backup_finish_date DESC) AS RowNumber
+                                     FROM msdb..backupset bk
+                                          JOIN msdb..backupmediafamily bm
+                                            ON bk.media_set_id=bm.media_set_id
+                                     WHERE bk.type='D'
+                                           AND DB_ID(bk.database_name) IS NOT NULL -- test if database exists
+                                           AND bk.is_copy_only=0) AS FB
+                                WHERE RowNumber=1) AS LFB
+                            ON IBA.database_name=LFB.database_name
+                               AND IBA.backup_finish_date&gt;LFB.backup_finish_date
+                     WHERE IBA.RowNumber=1
+					 ) seq ) lb
+       ON sd.name=lb.database_name
+WHERE sd.name&lt;&gt;'tempdb'
+ORDER BY database_name, backup_sequence;</CommandText>
       </Query>
       <Fields>
         <Field Name="database_name">
           <DataField>database_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="device">
+          <DataField>device</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="backup_date">
@@ -5573,9 +5876,25 @@ where sd.name &lt;&gt; 'tempdb'
           <DataField>physical_device_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="device_type">
-          <DataField>device_type</DataField>
-          <rd:TypeName>System.Byte</rd:TypeName>
+        <Field Name="is_copy_only">
+          <DataField>is_copy_only</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="position">
+          <DataField>position</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="backup_sequence">
+          <DataField>backup_sequence</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="color">
+          <DataField>color</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="colordevice">
+          <DataField>colordevice</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -5637,46 +5956,36 @@ where DBName &lt;&gt; 'tempdb'
     <DataSet Name="LastLogBackups">
       <Query>
         <DataSourceName>master</DataSourceName>
-        <CommandText>SELECT
-       CASE
-       WHEN sd.NAME IS NULL THEN '*** Backup of non existant db : ' ELSE ''
-       END + COALESCE (sd.name,filebackup.database_name) AS database_name
-      ,filebackup.backup_date
-      ,filebackup.type
-      ,filebackup.physical_device_name
-      ,filebackup.device_type
-      ,sd.recovery_model_desc
-  FROM
-       master.sys.databases sd FULL JOIN
-       (
-        SELECT
-               bk.database_name
-              ,MAX (bk.backup_finish_date) AS backup_date
-              ,bm.device_type
-          FROM
-               msdb..backupset bk JOIN msdb..backupmediafamily bm
-               ON bk.media_set_id = bm.media_set_id
-          WHERE bk.type = 'L' 
-          -- AND bm.device_type = 2 -- pour fichiers disque
-          GROUP BY
-                   bk.database_name
-                  ,bm.device_type) AS lastbackup INNER JOIN (
-                                                             SELECT
-                                                                    bk.database_name
-                                                                   ,bk.backup_finish_date AS backup_date
-                                                                   ,bk.type
-                                                                   ,bm.physical_device_name
-                                                                   ,device_type
-                                                               FROM
-                                                                    msdb..backupset bk JOIN msdb..backupmediafamily bm
-                                                                    ON bk.media_set_id = bm.media_set_id
-                                                               WHERE bk.type = 'L') AS filebackup
-       ON lastbackup.database_name = filebackup.database_name
-      AND lastbackup.backup_date = filebackup.backup_date
-       ON sd.name = filebackup.database_name
- WHERE sd.recovery_model_desc &lt;&gt; 'SIMPLE'
-  ORDER BY
-           sd.name,backup_date;</CommandText>
+        <CommandText>SELECT CASE
+         WHEN sd.name IS NULL THEN
+              '*** Backup of non existant db : ' ELSE '' END
+       +COALESCE(sd.name, filebackup.database_name) AS database_name, filebackup.backup_date,
+  filebackup.type, filebackup.physical_device_name,
+  CASE
+    WHEN filebackup.device_type IN (2, 102) THEN
+         'Disk'
+    WHEN filebackup.device_type=5 THEN
+         'Tape'
+    WHEN filebackup.device_type=7 THEN
+         'Virtual'
+    WHEN filebackup.device_type=9 THEN
+         'Azure' ELSE CAST(filebackup.device_type AS VARCHAR(5))END AS device_type,
+  sd.recovery_model_desc
+FROM master.sys.databases sd
+     FULL JOIN(SELECT bk.database_name, MAX(bk.backup_finish_date) AS backup_date, bm.device_type
+               FROM msdb..backupset bk
+                    JOIN msdb..backupmediafamily bm ON bk.media_set_id=bm.media_set_id
+               WHERE bk.type='L'
+               -- AND bm.device_type = 2 -- pour fichiers disque
+               GROUP BY bk.database_name, bm.device_type) AS lastbackup
+              INNER JOIN(SELECT bk.database_name, bk.backup_finish_date AS backup_date, bk.type,
+                           bm.physical_device_name, device_type
+                         FROM msdb..backupset bk
+                              JOIN msdb..backupmediafamily bm ON bk.media_set_id=bm.media_set_id
+                         WHERE bk.type='L') AS filebackup ON lastbackup.database_name=filebackup.database_name
+                                                             AND lastbackup.backup_date=filebackup.backup_date ON sd.name=filebackup.database_name
+WHERE sd.recovery_model_desc&lt;&gt;'SIMPLE'
+ORDER BY sd.name, backup_date;</CommandText>
       </Query>
       <Fields>
         <Field Name="database_name">
@@ -5697,7 +6006,7 @@ where DBName &lt;&gt; 'tempdb'
         </Field>
         <Field Name="device_type">
           <DataField>device_type</DataField>
-          <rd:TypeName>System.Byte</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="recovery_model_desc">
           <DataField>recovery_model_desc</DataField>

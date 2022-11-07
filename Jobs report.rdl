@@ -91,415 +91,214 @@ SELECT
       <Query>
         <DataSourceName>master</DataSourceName>
         <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-DECLARE @DOW TABLE
-    (
-        [dayNumber] TINYINT
-      , [dayCode] TINYINT
-      , [dayName] VARCHAR(3)
-    );
-INSERT INTO @DOW (   [dayNumber]
-                   , [dayCode]
-                   , [dayName]
-                 )
-SELECT  1, 1, 'Sun' 
-     UNION ALL SELECT 2, 2, 'Mon' 
-     UNION ALL SELECT 3, 4, 'Tue' 
-     UNION ALL SELECT 4, 8, 'Wed' 
-     UNION ALL SELECT 5, 16, 'Thu' 
-     UNION ALL SELECT 6, 32, 'Fri' 
-     UNION ALL SELECT 7, 64, 'Sat' ;
-
-DECLARE @xp_results TABLE
-    (
-        job_id UNIQUEIDENTIFIER NOT NULL
-      , last_run_date INT NOT NULL
-      , last_run_time INT NOT NULL
-      , next_run_date INT NOT NULL
-      , next_run_time INT NOT NULL
-      , next_run_schedule_id INT NOT NULL
-      , requested_to_run INT NOT NULL -- BOOL
-      , request_source INT NOT NULL
-      , request_source_id sysname COLLATE DATABASE_DEFAULT NULL
-      , running INT NOT NULL          -- BOOL
-      , current_step INT NOT NULL
-      , current_retry_attempt INT NOT NULL
-      , job_state INT NOT NULL
-    );
-INSERT INTO @xp_results
-EXECUTE master.dbo.xp_sqlagent_enum_jobs 1, 'sa';
-
-SELECT   *
-FROM     (   SELECT [Job ID] = job.job_id
-                  , [Job Name] = job.name
-                  , status.running Running
-                  , [Job Enabled] = job.enabled
-                  , [Sched ID] = sched.schedule_id
-                  , [Sched Enabled] = sched.enabled
-                  , [Sched Frequency] = CASE sched.freq_type
-                                             WHEN 1 THEN 'Once'
-                                             WHEN 4 THEN
-                                                 CASE WHEN sched.freq_interval &gt; 1 THEN
-                                                          'Each '
-                                                          + CAST(sched.freq_interval AS VARCHAR(2))
-                                                          + ' days'
-                                                      ELSE 'Daily'
-                                                 END
-                                             WHEN 8 THEN
-                                                 CASE WHEN sched.freq_recurrence_factor &gt; 1 THEN
-                                                          'Each '
-                                                          + CAST(sched.freq_recurrence_factor AS VARCHAR(2))
-                                                          + ' weeks'
-                                                      ELSE 'Weekly'
-                                                 END + ' : '
-                                                 + STUFF(
-                                                       (   SELECT ',' + [dayName]
-                                                           FROM   @DOW
-                                                           WHERE  ( sched.[freq_interval]
-                                                                    &amp; [@DOW].[dayCode]
-                                                                  ) = [@DOW].[dayCode]
-                                                           FOR XML PATH('')
-                                                       )
-                                                     , 1
-                                                     , 1
-                                                     , ''
-                                                        )
-                                             WHEN 16 THEN 'Monthly'
-                                             WHEN 32 THEN 'Monthly relative'
-                                             WHEN 64 THEN
-                                                 'When SQLServer Agent starts'
-                                        END
-                  , [Subday Frequency] = CASE ( sched.freq_subday_interval )
-                                              WHEN 0 THEN
-                                                  CASE WHEN sched.freq_type &lt;&gt; 64 THEN
-                                                           'Once' + ', at '
-                                                           + CONVERT(
-                                                                        VARCHAR(8)
-                                                                      , CAST('20000101' AS DATETIME)
-                                                                        + ( active_start_time
-                                                                            * 9
-                                                                            + active_start_time
-                                                                            % 10000
-                                                                            * 6
-                                                                            + active_start_time
-                                                                            % 100
-                                                                            * 10
-                                                                          )
-                                                                        / 216e4
-                                                                      , 8
-                                                                    )
-                                                       ELSE ''
-                                                  END
-                                              ELSE
-                                                  CAST('Every '
-                                                       + RIGHT(sched.freq_subday_interval, 2)
-                                                       + ' '
-                                                       + CASE ( sched.freq_subday_type )
-                                                              WHEN 1 THEN 'Once'
-                                                              WHEN 2 THEN
-                                                                  'Seconds'
-                                                              WHEN 4 THEN
-                                                                  'Minutes'
-                                                              WHEN 8 THEN 'Hours'
-                                                         END AS VARCHAR(16))
-                                                  + ', between '
-                                                  + CONVERT(
-                                                               VARCHAR(8)
-                                                             , CAST('20000101' AS DATETIME)
-                                                               + ( active_start_time
-                                                                   * 9
-                                                                   + active_start_time
-                                                                   % 10000 * 6
-                                                                   + active_start_time
-                                                                   % 100 * 10
-                                                                 )
-                                                               / 216e4
-                                                             , 8
-                                                           ) + ' and '
-                                                  + CONVERT(
-                                                               VARCHAR(8)
-                                                             , CAST('20000101' AS DATETIME)
-                                                               + ( active_end_time
-                                                                   * 9
-                                                                   + active_end_time
-                                                                   % 10000 * 6
-                                                                   + active_end_time
-                                                                   % 100 * 10
-                                                                 )
-                                                               / 216e4
-                                                             , 8
-                                                           )
-                                         END
-                  , [Last Run] = CASE WHEN status.last_run_date = 0
-                                           OR status.last_run_time = 0 THEN NULL
-                                      ELSE
-                                          CONVERT(
-                                                     DATETIME
-                                                   , RTRIM(status.last_run_date)
-                                                 )
-                                          + ( status.last_run_time * 9
-                                              + status.last_run_time % 10000 * 6
-                                              + status.last_run_time % 100 * 10
-                                            )
-                                          / 216e4
-                                 END
-                  , [Last Run Status] = (   SELECT   TOP ( 1 ) run_status
-                                            FROM     msdb.dbo.sysjobhistory job_his
-                                            WHERE    job_id = job.job_id
-                                                     AND step_id = 0
-                                            ORDER BY instance_id DESC
-                                        )
-                  , [Next Run] = CASE WHEN status.next_run_date = 0
-                                           OR status.next_run_time = 0 THEN NULL
-                                      ELSE
-                                          CONVERT(
-                                                     DATETIME
-                                                   , RTRIM(status.next_run_date)
-                                                 )
-                                          + ( status.next_run_time * 9
-                                              + status.next_run_time % 10000 * 6
-                                              + status.next_run_time % 100 * 10
-                                            )
-                                          / 216e4
-                                 END
-                  --                    status.next_run_schedule_id ,
-                  , [Min Duration] = RIGHT('0'
-                                           + CAST(CAST(SUBSTRING(
-                                                                    RIGHT('0000000000'
-                                                                          + CONVERT(
-                                                                                       VARCHAR(10)
-                                                                                     , min_run_duration
-                                                                                   ) ,10)
-                                                                  , 1
-                                                                  , 6
-                                                                ) AS INT) AS VARCHAR(6)), CASE WHEN min_run_duration &gt; 9999999 THEN
-                                                                                                   4
-                                                                                               WHEN min_run_duration &gt; 999999 THEN
-                                                                                                   3
-                                                                                               ELSE
-                                                                                                   2
-                                                                                          END)
-                                     + ':'
-                                     + SUBSTRING(
-                                                    RIGHT('000000'
-                                                          + CONVERT(
-                                                                       VARCHAR(10)
-                                                                     , min_run_duration
-                                                                   ) ,6)
-                                                  , 3
-                                                  , 2
-                                                ) + ':'
-                                     + SUBSTRING(
-                                                    RIGHT('000000'
-                                                          + CONVERT(
-                                                                       VARCHAR(10)
-                                                                     , min_run_duration
-                                                                   ) ,6)
-                                                  , 5
-                                                  , 2
-                                                )
-                  , [Max Duration] = RIGHT('0'
-                                           + CAST(CAST(SUBSTRING(
-                                                                    RIGHT('0000000000'
-                                                                          + CONVERT(
-                                                                                       VARCHAR(10)
-                                                                                     , max_run_duration
-                                                                                   ) ,10)
-                                                                  , 1
-                                                                  , 6
-                                                                ) AS INT) AS VARCHAR(6)), CASE WHEN max_run_duration &gt; 9999999 THEN
-                                                                                                   4
-                                                                                               WHEN max_run_duration &gt; 999999 THEN
-                                                                                                   3
-                                                                                               ELSE
-                                                                                                   2
-                                                                                          END)
-                                     + ':'
-                                     + SUBSTRING(
-                                                    RIGHT('000000'
-                                                          + CONVERT(
-                                                                       VARCHAR(10)
-                                                                     , max_run_duration
-                                                                   ) ,6)
-                                                  , 3
-                                                  , 2
-                                                ) + ':'
-                                     + SUBSTRING(
-                                                    RIGHT('000000'
-                                                          + CONVERT(
-                                                                       VARCHAR(10)
-                                                                     , max_run_duration
-                                                                   ) ,6)
-                                                  , 5
-                                                  , 2
-                                                )
-                  , [Avg Duration] = RIGHT('0'
-                                           + CAST(CAST(SUBSTRING(
-                                                                    RIGHT('0000000000'
-                                                                          + CONVERT(
-                                                                                       VARCHAR(10)
-                                                                                     , avg_run_duration
-                                                                                   ) ,10)
-                                                                  , 1
-                                                                  , 6
-                                                                ) AS INT) AS VARCHAR(6)), CASE WHEN avg_run_duration &gt; 9999999 THEN
-                                                                                                   4
-                                                                                               WHEN avg_run_duration &gt; 999999 THEN
-                                                                                                   3
-                                                                                               ELSE
-                                                                                                   2
-                                                                                          END)
-                                     + ':'
-                                     + SUBSTRING(
-                                                    RIGHT('000000'
-                                                          + CONVERT(
-                                                                       VARCHAR(10)
-                                                                     , avg_run_duration
-                                                                   ) ,6)
-                                                  , 3
-                                                  , 2
-                                                ) + ':'
-                                     + SUBSTRING(
-                                                    RIGHT('000000'
-                                                          + CONVERT(
-                                                                       VARCHAR(10)
-                                                                     , avg_run_duration
-                                                                   ) ,6)
-                                                  , 5
-                                                  , 2
-                                                )
-             FROM   msdb.dbo.sysjobs job
-                    LEFT JOIN (   SELECT job_schd.job_id
-                                       , sys_schd.enabled
-                                       , sys_schd.schedule_id
-                                       , sys_schd.freq_type
-                                       , sys_schd.freq_subday_type
-                                       , sys_schd.freq_interval
-                                       , sys_schd.freq_relative_interval
-                                       , sys_schd.freq_recurrence_factor
-                                       , sys_schd.freq_subday_interval
-                                       , active_start_time
-                                       , active_end_time
-                                       , active_end_date = NULLIF(sys_schd.active_end_date, '99991231')
-                                  FROM   msdb.dbo.sysjobschedules job_schd
-                                         LEFT JOIN msdb.dbo.sysschedules sys_schd ON job_schd.schedule_id = sys_schd.schedule_id
-                              ) sched ON job.job_id = sched.job_id
-                    LEFT OUTER JOIN @xp_results status ON job.job_id = status.job_id
-                    LEFT OUTER JOIN (   SELECT   TOP ( 20 ) job_id
-                                               , MIN(CASE WHEN job_his.run_duration &lt; 0 THEN 0 ELSE job_his.run_duration END) AS min_run_duration
-                                               , AVG(CASE WHEN job_his.run_duration &lt; 0 THEN 0 ELSE job_his.run_duration END) AS avg_run_duration
-                                               , MAX(CASE WHEN job_his.run_duration &lt; 0 THEN 0 ELSE job_his.run_duration END) AS max_run_duration
-                                        FROM     msdb.dbo.sysjobhistory job_his
-                                        WHERE    step_id = 0 --AND run_status = 1						
-                                        GROUP BY job_id
-                                    ) Q1 ON job.job_id = Q1.job_id
-                    LEFT JOIN msdb.dbo.sysoperators oper ON job.notify_email_operator_id = oper.id
-         ) jobdata ------------------------------------------------------------------ get 20 last execution stats -------------------------------------
-         LEFT JOIN (   SELECT JobHistory.job_id
-                            , JobHistory.nexec
-                            , JobHistory.run_datetime
-                            , run_duration_secs
-                            , run_status
-							, CASE WHEN MIN(run_status) OVER (PARTITION BY JobHistory.job_id) = 0 OR MAX(run_status) OVER (PARTITION BY JobHistory.job_id) &gt; 1 THEN 1 ELSE 0 END AS had_failure
-                       FROM   (   SELECT ROW_NUMBER() OVER ( PARTITION BY h.job_id
-                                                             ORDER BY h.job_id
-                                                                    , CONVERT(
-                                                                                 DATETIME
-                                                                               , RTRIM(run_date)
-                                                                             )
-                                                                      + ( run_time
-                                                                          * 9
-                                                                          + run_time
-                                                                          % 10000
-                                                                          * 6
-                                                                          + run_time
-                                                                          % 100
-                                                                          * 10
-                                                                        )
-                                                                      / 216e4 DESC
-                                                           ) AS nexec
-                                       , h.job_id
-                                       , h.step_id
-                                       , run_datetime = CONVERT(
-                                                                   DATETIME
-                                                                 , RTRIM(run_date)
-                                                               )
-                                                        + ( run_time * 9 + run_time
-                                                            % 10000 * 6 + run_time
-                                                            % 100 * 10
-                                                          ) / 216e4
-                                       , run_status
-                                       , run_duration = RIGHT('0'
-                                                              + CAST(CAST(SUBSTRING(
-                                                                                       RIGHT('0000000000'
-                                                                                             + CONVERT(
-                                                                                                          VARCHAR(10)
-                                                                                                        , run_duration
-                                                                                                      ) ,10)
-                                                                                     , 1
-                                                                                     , 6
-                                                                                   ) AS INT) AS VARCHAR(6)), CASE WHEN run_duration &gt; 9999999 THEN
-                                                                                                                      4
-                                                                                                                  WHEN run_duration &gt; 999999 THEN
-                                                                                                                      3
-                                                                                                                  ELSE
-                                                                                                                      2
-                                                                                                             END)
-                                                        + ':'
-                                                        + SUBSTRING(
-                                                                       RIGHT('000000'
-                                                                             + CONVERT(
-                                                                                          VARCHAR(10)
-                                                                                        , run_duration
-                                                                                      ) ,6)
-                                                                     , 3
-                                                                     , 2
-                                                                   ) + ':'
-                                                        + SUBSTRING(
-                                                                       RIGHT('000000'
-                                                                             + CONVERT(
-                                                                                          VARCHAR(10)
-                                                                                        , run_duration
-                                                                                      ) ,6)
-                                                                     , 5
-                                                                     , 2
-                                                                   )
-                                       , run_duration_secs = CAST(SUBSTRING(
-                                                                               RIGHT('0000000000'
-                                                                                     + CONVERT(
-                                                                                                  VARCHAR(10)
-                                                                                                , run_duration
-                                                                                              ) ,10)
-                                                                             , 1
-                                                                             , 6
-                                                                           ) AS INT)
-                                                             * 3600
-                                                             + CAST(SUBSTRING(
-                                                                                 RIGHT('000000'
-                                                                                       + CONVERT(
-                                                                                                    VARCHAR(10)
-                                                                                                  , run_duration
-                                                                                                ) ,6)
-                                                                               , 3
-                                                                               , 2
-                                                                             ) AS INT)
-                                                             * 60
-                                                             + CAST(SUBSTRING(
-                                                                                 RIGHT('000000'
-                                                                                       + CONVERT(
-                                                                                                    VARCHAR(10)
-                                                                                                  , run_duration
-                                                                                                ) ,6)
-                                                                               , 5
-                                                                               , 2
-                                                                             ) AS INT)
-                                  FROM   msdb.dbo.sysjobhistory h
-                                  WHERE  step_id = 0
-                              ) AS JobHistory
-                       WHERE  nexec &lt;= 30
-                   ) jobhist ON jobdata.[Job ID] = jobhist.job_id
-ORDER BY jobdata.[Job Name]
-       , jobdata.[Sched ID]
-       , jobhist.nexec DESC;</CommandText>
+DECLARE @DOW TABLE([dayNumber] TINYINT, [dayCode] TINYINT, [dayName] VARCHAR(3));
+INSERT INTO @DOW([dayNumber], [dayCode], [dayName])
+SELECT 1, 1, 'Sun'
+UNION ALL
+SELECT 2, 2, 'Mon'
+UNION ALL
+SELECT 3, 4, 'Tue'
+UNION ALL
+SELECT 4, 8, 'Wed'
+UNION ALL
+SELECT 5, 16, 'Thu'
+UNION ALL
+SELECT 6, 32, 'Fri'
+UNION ALL
+SELECT 7, 64, 'Sat';
+DECLARE @xp_results TABLE(job_id UNIQUEIDENTIFIER NOT NULL,
+last_run_date INT NOT NULL,
+last_run_time INT NOT NULL,
+next_run_date INT NOT NULL,
+next_run_time INT NOT NULL,
+next_run_schedule_id INT NOT NULL,
+requested_to_run INT NOT NULL, -- BOOL
+request_source INT NOT NULL,
+request_source_id sysname COLLATE DATABASE_DEFAULT NULL,
+running INT NOT NULL, -- BOOL
+current_step INT NOT NULL,
+current_retry_attempt INT NOT NULL,
+job_state INT NOT NULL);
+INSERT INTO @xp_results EXECUTE master.dbo.xp_sqlagent_enum_jobs 1, 'sa';
+SELECT *
+FROM(SELECT [Job ID]=job.job_id, [Job Name]=job.name, status.running Running,
+       [Job Enabled]=job.enabled, [Sched ID]=sched.schedule_id, [Sched Enabled]=sched.enabled,
+       [Sched Frequency]=CASE sched.freq_type
+                           WHEN 1 THEN
+                                'Once'
+                           WHEN 4 THEN
+                                CASE
+                                  WHEN sched.freq_interval&gt;1 THEN
+                                       'Each '+CAST(sched.freq_interval AS VARCHAR(2))+' days' ELSE
+                                       'Daily' END
+                           WHEN 8 THEN
+                                CASE
+                                  WHEN sched.freq_recurrence_factor&gt;1 THEN
+                                       'Each '+CAST(sched.freq_recurrence_factor AS VARCHAR(2))
+                                       +' weeks' ELSE 'Weekly' END+' : '
+                                +STUFF(
+                                 (SELECT ','+[dayName]
+                                  FROM @DOW
+                                  WHERE(sched.[freq_interval] &amp; [@DOW].[dayCode])=[@DOW].[dayCode]
+                                 FOR XML PATH('')), 1, 1, '')
+                           WHEN 16 THEN
+                                'Monthly'
+                           WHEN 32 THEN
+                                'Monthly relative'
+                           WHEN 64 THEN
+                                'When SQLServer Agent starts' END,
+       [Subday Frequency]=CASE (sched.freq_subday_interval)
+                            WHEN 0 THEN
+                                 CASE
+                                   WHEN sched.freq_type&lt;&gt;64 THEN
+                                        'Once'+', at '
+                                        +CONVERT(
+                                           VARCHAR(8),
+                                           CAST('20000101' AS DATETIME)
+                                           +(active_start_time * 9+active_start_time % 10000 * 6
+                                             +active_start_time % 100 * 10)/ 216e4, 8)ELSE '' END ELSE
+                                 --bug change 20200723
+                                 CASE (sched.freq_subday_type)
+                                   WHEN 1 THEN
+                                        'Once' -- si once, pas every !
+                                   WHEN 2 THEN
+                                        'Every '+RIGHT(sched.freq_subday_interval, 2)+' Seconds'
+                                   WHEN 4 THEN
+                                        'Every '+RIGHT(sched.freq_subday_interval, 2)+' Minutes'
+                                   WHEN 8 THEN
+                                        'Every '+RIGHT(sched.freq_subday_interval, 2)+' Hours' END -- AS VARCHAR(16))
+                                 +CASE
+                                    WHEN sched.freq_subday_type=1 THEN
+                                         ', at '
+                                         +CONVERT(
+                                            VARCHAR(8),
+                                            CAST('20000101' AS DATETIME)
+                                            +(active_start_time * 9+active_start_time % 10000 * 6
+                                              +active_start_time % 100 * 10)/ 216e4, 8)ELSE
+                                         ', between '
+                                         +CONVERT(
+                                            VARCHAR(8),
+                                            CAST('20000101' AS DATETIME)
+                                            +(active_start_time * 9+active_start_time % 10000 * 6
+                                              +active_start_time % 100 * 10)/ 216e4, 8)+' and '
+                                         +CONVERT(
+                                            VARCHAR(8),
+                                            CAST('20000101' AS DATETIME)
+                                            +(active_end_time * 9+active_end_time % 10000 * 6
+                                              +active_end_time % 100 * 10)/ 216e4, 8)END END,
+       [Last Run]=CASE
+                    WHEN status.last_run_date=0 OR status.last_run_time=0 THEN
+                         NULL ELSE
+                         CONVERT(DATETIME, RTRIM(status.last_run_date))
+                         +(status.last_run_time * 9+status.last_run_time % 10000 * 6
+                           +status.last_run_time % 100 * 10)/ 216e4 END,
+       [Last Run Status]=(SELECT TOP(1)run_status
+                          FROM msdb.dbo.sysjobhistory job_his
+                          WHERE job_id=job.job_id AND step_id=0
+                          ORDER BY instance_id DESC),
+       [Next Run]=CASE
+                    WHEN status.next_run_date=0 OR status.next_run_time=0 THEN
+                         NULL ELSE
+                         CONVERT(DATETIME, RTRIM(status.next_run_date))
+                         +(status.next_run_time * 9+status.next_run_time % 10000 * 6
+                           +status.next_run_time % 100 * 10)/ 216e4 END,
+       --                    status.next_run_schedule_id ,
+       [Min Duration]=RIGHT('0'
+                            +CAST(CAST(SUBSTRING(
+                                         RIGHT('0000000000'+CONVERT(VARCHAR(10), min_run_duration), 10),
+                                         1, 6) AS INT) AS VARCHAR(6)), CASE
+                                                                         WHEN min_run_duration&gt;9999999 THEN
+                                                                              4
+                                                                         WHEN min_run_duration&gt;999999 THEN
+                                                                              3 ELSE 2 END)+':'
+                      +SUBSTRING(RIGHT('000000'+CONVERT(VARCHAR(10), min_run_duration), 6), 3, 2)
+                      +':'
+                      +SUBSTRING(RIGHT('000000'+CONVERT(VARCHAR(10), min_run_duration), 6), 5, 2),
+       [Max Duration]=RIGHT('0'
+                            +CAST(CAST(SUBSTRING(
+                                         RIGHT('0000000000'+CONVERT(VARCHAR(10), max_run_duration), 10),
+                                         1, 6) AS INT) AS VARCHAR(6)), CASE
+                                                                         WHEN max_run_duration&gt;9999999 THEN
+                                                                              4
+                                                                         WHEN max_run_duration&gt;999999 THEN
+                                                                              3 ELSE 2 END)+':'
+                      +SUBSTRING(RIGHT('000000'+CONVERT(VARCHAR(10), max_run_duration), 6), 3, 2)
+                      +':'
+                      +SUBSTRING(RIGHT('000000'+CONVERT(VARCHAR(10), max_run_duration), 6), 5, 2),
+       [Avg Duration]=RIGHT('0'
+                            +CAST(CAST(SUBSTRING(
+                                         RIGHT('0000000000'+CONVERT(VARCHAR(10), avg_run_duration), 10),
+                                         1, 6) AS INT) AS VARCHAR(6)), CASE
+                                                                         WHEN avg_run_duration&gt;9999999 THEN
+                                                                              4
+                                                                         WHEN avg_run_duration&gt;999999 THEN
+                                                                              3 ELSE 2 END)+':'
+                      +SUBSTRING(RIGHT('000000'+CONVERT(VARCHAR(10), avg_run_duration), 6), 3, 2)
+                      +':'
+                      +SUBSTRING(RIGHT('000000'+CONVERT(VARCHAR(10), avg_run_duration), 6), 5, 2)
+     FROM msdb.dbo.sysjobs job
+          LEFT JOIN(SELECT job_schd.job_id, sys_schd.enabled, sys_schd.schedule_id,
+                      sys_schd.freq_type, sys_schd.freq_subday_type, sys_schd.freq_interval,
+                      sys_schd.freq_relative_interval, sys_schd.freq_recurrence_factor,
+                      sys_schd.freq_subday_interval, active_start_time, active_end_time,
+                      active_end_date=NULLIF(sys_schd.active_end_date, '99991231')
+                    FROM msdb.dbo.sysjobschedules job_schd
+                         LEFT JOIN msdb.dbo.sysschedules sys_schd ON job_schd.schedule_id=sys_schd.schedule_id) sched ON job.job_id=sched.job_id
+          LEFT OUTER JOIN @xp_results status ON job.job_id=status.job_id
+          LEFT OUTER JOIN(SELECT TOP(20)job_id,
+                            MIN(
+                              CASE WHEN job_his.run_duration&lt;0 THEN 0 ELSE job_his.run_duration END) AS min_run_duration,
+                            AVG(
+                              CASE WHEN job_his.run_duration&lt;0 THEN 0 ELSE job_his.run_duration END) AS avg_run_duration,
+                            MAX(
+                              CASE WHEN job_his.run_duration&lt;0 THEN 0 ELSE job_his.run_duration END) AS max_run_duration
+                          FROM msdb.dbo.sysjobhistory job_his
+                          WHERE step_id=0 --AND run_status = 1						
+                          GROUP BY job_id) Q1 ON job.job_id=Q1.job_id
+          LEFT JOIN msdb.dbo.sysoperators oper ON job.notify_email_operator_id=oper.id) jobdata 
+		  ------------------------------------------------------------------ get 20 last execution stats -------------------------------------
+    LEFT JOIN(SELECT JobHistory.job_id, JobHistory.nexec, JobHistory.run_datetime,
+                run_duration_secs, run_status,
+                CASE
+                  WHEN MIN(run_status) OVER (PARTITION BY JobHistory.job_id)=0
+                       OR MAX(run_status) OVER (PARTITION BY JobHistory.job_id)&gt;1 THEN
+                       1 ELSE 0 END AS had_failure
+              FROM(SELECT ROW_NUMBER() OVER (PARTITION BY h.job_id
+                                             ORDER BY h.job_id,
+                                               CONVERT(DATETIME, RTRIM(run_date))
+                                               +(run_time * 9+run_time % 10000 * 6+run_time % 100
+                                                 * 10)/ 216e4 DESC) AS nexec, h.job_id, h.step_id,
+                     run_datetime=CONVERT(DATETIME, RTRIM(run_date))
+                                  +(run_time * 9+run_time % 10000 * 6+run_time % 100 * 10)/ 216e4,
+                     run_status,
+                     run_duration=RIGHT('0'
+                                        +CAST(CAST(SUBSTRING(
+                                                     RIGHT('0000000000'
+                                                           +CONVERT(VARCHAR(10), run_duration), 10),
+                                                     1, 6) AS INT) AS VARCHAR(6)), CASE
+                                                                                     WHEN run_duration&gt;9999999 THEN
+                                                                                          4
+                                                                                     WHEN run_duration&gt;999999 THEN
+                                                                                          3 ELSE 2 END)
+                                  +':'
+                                  +SUBSTRING(
+                                     RIGHT('000000'+CONVERT(VARCHAR(10), run_duration), 6), 3, 2)
+                                  +':'
+                                  +SUBSTRING(
+                                     RIGHT('000000'+CONVERT(VARCHAR(10), run_duration), 6), 5, 2),
+                     run_duration_secs=CAST(SUBSTRING(
+                                              RIGHT('0000000000'+CONVERT(VARCHAR(10), run_duration), 10),
+                                              1, 6) AS INT)* 3600
+                                       +CAST(SUBSTRING(
+                                               RIGHT('000000'+CONVERT(VARCHAR(10), run_duration), 6),
+                                               3, 2) AS INT)* 60
+                                       +CAST(SUBSTRING(
+                                               RIGHT('000000'+CONVERT(VARCHAR(10), run_duration), 6),
+                                               5, 2) AS INT)
+                   FROM msdb.dbo.sysjobhistory h
+                   WHERE step_id=0) AS JobHistory
+              WHERE nexec&lt;=30) jobhist ON jobdata.[Job ID]=jobhist.job_id
+ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandText>
       </Query>
       <Fields>
         <Field Name="Job_ID">
@@ -2662,7 +2461,7 @@ ORDER BY jobdata.[Job Name]
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>SSMSInfoReports v6.5</Value>
+                      <Value>SSMSInfoReports v7.0</Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontSize>9pt</FontSize>

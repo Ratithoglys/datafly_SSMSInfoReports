@@ -751,6 +751,7 @@
                               <Value>=Fields!Physical_Memory__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1039,7 +1040,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Clustered</Value>
+                              <Value>FCI Cluster</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -2840,16 +2841,16 @@
               <Width>2.17047cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.97298cm</Width>
+              <Width>2.25743cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.36771cm</Width>
+              <Width>2.20773cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.7652cm</Width>
+              <Width>1.48075cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.17081cm</Width>
+              <Width>2.32749cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.49458cm</Width>
@@ -3003,7 +3004,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>minimum</Value>
+                              <Value>mini</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -3036,7 +3037,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>maximum</Value>
+                              <Value>maxi</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -3175,6 +3176,7 @@
                               <Value>=Fields!DefaultValue.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3207,6 +3209,7 @@
                               <Value>=Fields!ConfiguredValue.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3239,6 +3242,7 @@
                               <Value>=Fields!value_in_use.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3271,6 +3275,7 @@
                               <Value>=Fields!minimum.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3303,6 +3308,7 @@
                               <Value>=Fields!maximum.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3417,7 +3423,7 @@
         <Top>23.46618cm</Top>
         <Left>0.11971cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.32335cm</Width>
+        <Width>18.32005cm</Width>
         <ZIndex>20</ZIndex>
         <Style>
           <Border>
@@ -3960,6 +3966,7 @@
                               <Value>=Fields!Physical_Memory__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3992,6 +3999,7 @@
                               <Value>=Fields!Available_Memory__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4024,6 +4032,7 @@
                               <Value>=Fields!Total_Page_File__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4056,6 +4065,7 @@
                               <Value>=Fields!Available_Page_File__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4088,6 +4098,7 @@
                               <Value>=Fields!System_Cache__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4523,6 +4534,7 @@
                               <Value>=Fields!SQL_Server_Memory_Usage__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4555,6 +4567,7 @@
                               <Value>=Fields!large_page_allocations_kb.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4587,6 +4600,7 @@
                               <Value>=Fields!locked_page_allocations_kb.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4619,6 +4633,7 @@
                               <Value>=Fields!page_fault_count.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4651,6 +4666,7 @@
                               <Value>=Fields!memory_utilization_percentage.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4683,6 +4699,7 @@
                               <Value>=Fields!available_commit_limit_kb.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4968,6 +4985,7 @@
                               <Value>=Fields!value.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -6210,7 +6228,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!sizeMo.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n0</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -6586,7 +6606,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SSMSInfoReports v6.5</Value>
+                  <Value>SSMSInfoReports v7.0</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
                     <FontSize>9pt</FontSize>

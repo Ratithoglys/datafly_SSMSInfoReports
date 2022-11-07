@@ -399,6 +399,7 @@
                               <Value>=Fields!Total_Size__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -432,6 +433,8 @@
                               <Value>=Fields!Data_Size__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>SemiBold</FontWeight>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -465,6 +468,8 @@
                               <Value>=Fields!Data_Used__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>SemiBold</FontWeight>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -498,6 +503,7 @@
                               <Value>=Fields!Data_Free__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -531,6 +537,7 @@
                               <Value>=Fields!Free_Data_Space__.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -564,6 +571,8 @@
                               <Value>=Fields!Log_Size__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>SemiBold</FontWeight>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -597,6 +606,7 @@
                               <Value>=Fields!Log_Used__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -630,6 +640,7 @@
                               <Value>=Fields!Log_Free__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -663,6 +674,7 @@
                               <Value>=Fields!Free_Log_Space__.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1188,6 +1200,7 @@
                               <Value>=Fields!DB_Compatibility_Level.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Color>=iif(Fields!DB_Compatibility_Level.Value=Fields!servercompat.Value,"Black","Red")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1384,7 +1397,7 @@
                               <Value>=Fields!snapshot_isolation_state_desc.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=IIf(Fields!snapshot_isolation_state_desc.Value="ON","Blue","Black")</Color>
+                                <Color>=IIf(Fields!snapshot_isolation_state_desc.Value="ON","Maroon","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1417,7 +1430,7 @@
                               <Value>=Fields!is_read_committed_snapshot_on.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=IIf(Fields!is_read_committed_snapshot_on.Value=True,"Blue","Black")</Color>
+                                <Color>=IIf(Fields!is_read_committed_snapshot_on.Value=True,"Maroon","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1555,10 +1568,10 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.04302cm</Width>
+              <Width>3.31303cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>16.30585cm</Width>
+              <Width>15.03585cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -1574,7 +1587,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Total Size (MB)</Value>
+                              <Value>Total Size</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -1647,7 +1660,9 @@
                             <TextRun>
                               <Value>=Fields!Total_Size__MB_.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                                <Format>#,0.00 MB</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1711,9 +1726,11 @@
                                   <Y>=Fields!Data_Used__MB_.Value</Y>
                                 </ChartDataPointValues>
                                 <ChartDataLabel>
-                                  <Style />
+                                  <Style>
+                                    <Format>0 MB</Format>
+                                    <Color>White</Color>
+                                  </Style>
                                   <Label>=Fields!Data_Used__MB_.Value</Label>
-                                  <Visible>true</Visible>
                                 </ChartDataLabel>
                                 <ToolTip>="Data Space Allocated (MB) : " + Microsoft.VisualBasic.Conversion.Str(Fields!Data_Used__MB_.Value)</ToolTip>
                                 <Style>
@@ -1751,9 +1768,11 @@
                                   <Y>=Fields!Data_Free__MB_.Value</Y>
                                 </ChartDataPointValues>
                                 <ChartDataLabel>
-                                  <Style />
+                                  <Style>
+                                    <Format>0 MB</Format>
+                                    <Color>White</Color>
+                                  </Style>
                                   <Label>=Fields!Data_Free__MB_.Value</Label>
-                                  <Visible>true</Visible>
                                 </ChartDataLabel>
                                 <ToolTip>="Data Space Available (MB) : " + Microsoft.VisualBasic.Conversion.Str(Fields!Data_Free__MB_.Value)</ToolTip>
                                 <Style>
@@ -1793,7 +1812,6 @@
                                 <ChartDataLabel>
                                   <Style />
                                   <Label>=Fields!Log_Used__MB_.Value</Label>
-                                  <Visible>true</Visible>
                                 </ChartDataLabel>
                                 <ToolTip>="Log Space Allocated (MB) : " + Microsoft.VisualBasic.Conversion.Str(Fields!Log_Used__MB_.Value)</ToolTip>
                                 <Style>
@@ -1833,7 +1851,6 @@
                                 <ChartDataLabel>
                                   <Style />
                                   <Label>=Fields!Log_Free__MB_.Value</Label>
-                                  <Visible>true</Visible>
                                 </ChartDataLabel>
                                 <ToolTip>="Log Space Available (MB) : " + Microsoft.VisualBasic.Conversion.Str(Fields!Log_Free__MB_.Value)</ToolTip>
                                 <Style>
@@ -1873,7 +1890,6 @@
                                 <ChartDataLabel>
                                   <Style />
                                   <Label>=Fields!Data_Growth__MB_.Value</Label>
-                                  <Visible>true</Visible>
                                 </ChartDataLabel>
                                 <ToolTip>="Next data files growth (MB) : " + Microsoft.VisualBasic.Conversion.Str(Fields!Data_Growth__MB_.Value)</ToolTip>
                                 <Style>
@@ -1913,7 +1929,6 @@
                                 <ChartDataLabel>
                                   <Style />
                                   <Label>=Fields!Log_Growth__MB_.Value</Label>
-                                  <Visible>true</Visible>
                                 </ChartDataLabel>
                                 <ToolTip>="Next log files growth (MB) : " + Microsoft.VisualBasic.Conversion.Str(Fields!Log_Growth__MB_.Value)</ToolTip>
                                 <Style>
@@ -2209,7 +2224,7 @@
         <Top>4.07108cm</Top>
         <Left>0.2879cm</Left>
         <Height>4.45438cm</Height>
-        <Width>18.34887cm</Width>
+        <Width>18.34888cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -2676,6 +2691,7 @@
                               <Value>=Fields!File_Size__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2708,6 +2724,7 @@
                               <Value>=Fields!File_Space_Used__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2740,6 +2757,7 @@
                               <Value>=Fields!File_Available_Space__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2772,6 +2790,7 @@
                               <Value>=Fields!File_Growth__MB_.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4315,7 +4334,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Nb_objects.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n0</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -4899,7 +4920,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SSMSInfoReports v6.5</Value>
+                  <Value>SSMSInfoReports v7.0</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
                     <FontSize>9pt</FontSize>
@@ -5193,6 +5214,7 @@ SELECT
        ,mf.[File Available Space (MB)]
        ,mf.[File Growth (MB)]
        ,mf.[Percent Growth]
+	   ,CAST(LEFT(CONVERT(VARCHAR(128), SERVERPROPERTY('ProductVersion')), CHARINDEX('.', CONVERT(VARCHAR(128), SERVERPROPERTY('ProductVersion')))-1)+'0' AS TINYINT) AS servercompat
 FROM    sys.databases AS db WITH ( NOLOCK )
         FULL JOIN #FileStorage mf ON db.database_id = mf.database_id
 WHERE   db.database_id = DB_ID()
@@ -5202,8 +5224,7 @@ ORDER BY mf.sort_id,
        ,mf.[File Usage] ASC
        ,mf.[File Group] ASC
        ,mf.file_id
-OPTION  ( RECOMPILE );
-</CommandText>
+OPTION  ( RECOMPILE );</CommandText>
       </Query>
       <Fields>
         <Field Name="database_id">
@@ -5349,6 +5370,10 @@ OPTION  ( RECOMPILE );
         <Field Name="Percent_Growth">
           <DataField>Percent Growth</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="servercompat">
+          <DataField>servercompat</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>

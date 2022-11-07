@@ -581,6 +581,7 @@
                               <Value>=Fields!Avg_Bytes_Read.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -613,6 +614,7 @@
                               <Value>=Fields!Avg_Bytes_Write.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -645,6 +647,7 @@
                               <Value>=Fields!Avg_Bytes_Transfer.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1449,6 +1452,7 @@
                               <Value>=Fields!value.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1778,6 +1782,7 @@
                               <Value>=Fields!Page_Life_Expectancy.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                                 <Color>=iif(Fields!Page_Life_Expectancy.Value&lt;=600,"Red","Black")</Color>
                               </Style>
                             </TextRun>
@@ -2672,13 +2677,13 @@
               <Width>2.64535cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>10.65971cm</Width>
+              <Width>10.69887cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.55547cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.55547cm</Width>
+              <Width>2.43379cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -2888,7 +2893,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!originalsize_MB.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -2918,7 +2925,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!currentsize_MB.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -2964,7 +2973,7 @@
         <Top>37.43953cm</Top>
         <Left>0.29626cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.416cm</Width>
+        <Width>18.33348cm</Width>
         <ZIndex>22</ZIndex>
         <Style>
           <Border>
@@ -3201,7 +3210,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!user_objects_allocated_pages__MB_.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -3231,7 +3242,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!internal_object_reserved_page_count__MB_.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -3261,7 +3274,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!version_store_space__MB_.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -3291,7 +3306,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!free_space__MB_.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -3356,7 +3373,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!user_objects_allocated_pages__MB_.Value)</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -3386,7 +3405,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!internal_object_reserved_page_count__MB_.Value)</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -3416,7 +3437,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!version_store_space__MB_.Value)</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -3446,7 +3469,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!free_space__MB_.Value)</Value>
-                              <Style />
+                              <Style>
+                                <Format>n2</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -4706,7 +4731,7 @@
         <Top>4.77104cm</Top>
         <Left>0.21685cm</Left>
         <Height>5cm</Height>
-        <Width>18.41289cm</Width>
+        <Width>18.36097cm</Width>
         <ZIndex>29</ZIndex>
         <Style>
           <Border>
@@ -4843,7 +4868,7 @@
               <Width>1.78727cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.08711cm</Width>
+              <Width>2.00815cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -5164,6 +5189,7 @@
                               <Value>=Fields!WaitType.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5196,6 +5222,7 @@
                               <Value>=Fields!Wait_S.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5228,6 +5255,7 @@
                               <Value>=Fields!Resource_S.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5260,6 +5288,7 @@
                               <Value>=Fields!Signal_S.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5292,6 +5321,7 @@
                               <Value>=Fields!WaitCount.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5324,6 +5354,7 @@
                               <Value>=Fields!Percentage.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5356,6 +5387,7 @@
                               <Value>=Fields!AvgWait_S.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5388,6 +5420,7 @@
                               <Value>=Fields!AvgRes_S.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5420,6 +5453,7 @@
                               <Value>=Fields!AvgSig_S.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>n2</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5471,7 +5505,7 @@
         <Top>16.5015cm</Top>
         <Left>0.24389cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.41289cm</Width>
+        <Width>18.33393cm</Width>
         <ZIndex>34</ZIndex>
         <Style>
           <Border>
@@ -5532,7 +5566,7 @@
               <Width>2.5cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.80278cm</Width>
+              <Width>5.79728cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -5754,6 +5788,7 @@
                               <Value>=Fields!Physical_Memory__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5786,6 +5821,7 @@
                               <Value>=Fields!Available_Memory__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5818,6 +5854,7 @@
                               <Value>=Fields!Total_Page_File__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5850,6 +5887,7 @@
                               <Value>=Fields!Available_Page_File__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5882,6 +5920,7 @@
                               <Value>=Fields!System_Cache__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -5962,7 +6001,7 @@
         <Top>20.05868cm</Top>
         <Left>0.28054cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.30278cm</Width>
+        <Width>18.29728cm</Width>
         <ZIndex>36</ZIndex>
         <Style>
           <Border>
@@ -6317,6 +6356,7 @@
                               <Value>=Fields!SQL_Server_Memory_Usage__MB_.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -6349,6 +6389,7 @@
                               <Value>=Fields!large_page_allocations_kb.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -6381,6 +6422,7 @@
                               <Value>=Fields!locked_page_allocations_kb.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -6413,6 +6455,7 @@
                               <Value>=Fields!page_fault_count.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -6445,6 +6488,7 @@
                               <Value>=Fields!memory_utilization_percentage.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -6477,6 +6521,7 @@
                               <Value>=Fields!available_commit_limit_kb.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -7011,6 +7056,7 @@
                               <Value>=Fields!TotalMB.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -7043,6 +7089,7 @@
                               <Value>=Fields!FreeMB.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -7075,6 +7122,7 @@
                               <Value>=Fields!Free_pct.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -7449,6 +7497,7 @@
                               <Value>=Fields!DbSizeMo.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -7481,6 +7530,7 @@
                               <Value>=Fields!DbGrowthMo.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -7513,6 +7563,7 @@
                               <Value>=Fields!LeftAfterGrowthMo.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -8174,7 +8225,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!nbrows.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n0</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8204,7 +8257,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!avg_user_impact.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>n0</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8596,7 +8651,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SSMSInfoReports v6.5</Value>
+                  <Value>SSMSInfoReports v7.0</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
                     <FontSize>9pt</FontSize>
@@ -9277,32 +9332,31 @@ SELECT
       ,signal_wait_time_ms / 1000.0 AS SignalS
       ,waiting_tasks_count AS WaitCount
       ,100.0 * wait_time_ms / SUM (wait_time_ms) OVER () AS Percentage
-      ,ROW_NUMBER () OVER (ORDER BY wait_time_ms DESC) AS RowNum INTO
-                                                                      #Waits
+      ,ROW_NUMBER () OVER (ORDER BY wait_time_ms DESC) AS RowNum INTO #Waits
   FROM sys.dm_os_wait_stats
-  WHERE wait_type NOT IN 
+  WHERE waiting_tasks_count &gt; 0 AND wait_type NOT IN 
 (
         N'BROKER_EVENTHANDLER', N'BROKER_RECEIVE_WAITFOR', N'BROKER_TASK_STOP',
 		N'BROKER_TO_FLUSH', N'BROKER_TRANSMITTER', N'CHECKPOINT_QUEUE',
         N'CHKPT', N'CLR_AUTO_EVENT', N'CLR_MANUAL_EVENT', N'CLR_SEMAPHORE', 
+       N'CXCONSUMER',
+		-- mirroring
         N'DBMIRROR_DBM_EVENT', N'DBMIRROR_EVENTS_QUEUE', N'DBMIRROR_WORKER_QUEUE',
 		N'DBMIRRORING_CMD', N'DIRTY_PAGE_POLL', N'DISPATCHER_QUEUE_SEMAPHORE',
         N'EXECSYNC', N'FSAGENT', N'FT_IFTS_SCHEDULER_IDLE_WAIT', N'FT_IFTSHC_MUTEX',
+		-- hadr
         N'HADR_CLUSAPI_CALL', N'HADR_FILESTREAM_IOMGR_IOCOMPLETION', N'HADR_LOGCAPTURE_WAIT', 
 		N'HADR_NOTIFICATION_DEQUEUE', N'HADR_TIMER_TASK', N'HADR_WORK_QUEUE',
+
         N'KSOURCE_WAKEUP', N'LAZYWRITER_SLEEP', N'LOGMGR_QUEUE', 
 		N'MEMORY_ALLOCATION_EXT', N'ONDEMAND_TASK_QUEUE',
 		N'PARALLEL_REDO_DRAIN_WORKER', N'PARALLEL_REDO_LOG_CACHE', N'PARALLEL_REDO_TRAN_LIST',
 		N'PARALLEL_REDO_WORKER_SYNC', N'PARALLEL_REDO_WORKER_WAIT_WORK',
 		N'PREEMPTIVE_HADR_LEASE_MECHANISM', N'PREEMPTIVE_SP_SERVER_DIAGNOSTICS',
-		N'PREEMPTIVE_OS_LIBRARYOPS', N'PREEMPTIVE_OS_COMOPS', N'PREEMPTIVE_OS_CRYPTOPS',
-		N'PREEMPTIVE_OS_PIPEOPS', N'PREEMPTIVE_OS_AUTHENTICATIONOPS',
-		N'PREEMPTIVE_OS_GENERICOPS', N'PREEMPTIVE_OS_VERIFYTRUST',
-		N'PREEMPTIVE_OS_FILEOPS', N'PREEMPTIVE_OS_DEVICEOPS', N'PREEMPTIVE_OS_QUERYREGISTRY',
-		N'PREEMPTIVE_OS_WRITEFILE', N'PREEMPTIVE_OS_WRITEFILEGATHER',
-		N'PREEMPTIVE_XE_CALLBACKEXECUTE', N'PREEMPTIVE_XE_DISPATCHER',
-		N'PREEMPTIVE_XE_GETTARGETSTATE', N'PREEMPTIVE_XE_SESSIONCOMMIT',
-		N'PREEMPTIVE_XE_TARGETINIT', N'PREEMPTIVE_XE_TARGETFINALIZE',
+		-- preemptive
+        N'PREEMPTIVE_OS_FLUSHFILEBUFFERS', 
+		N'PREEMPTIVE_XE_GETTARGETSTATE', 
+		-- suite
         N'PWAIT_ALL_COMPONENTS_INITIALIZED', N'PWAIT_DIRECTLOGCONSUMER_GETNEXT',
 		N'PWAIT_EXTENSIBILITY_CLEANUP_TASK',
 		N'QDS_PERSIST_TASK_MAIN_LOOP_SLEEP', N'QDS_ASYNC_QUEUE',
@@ -9350,7 +9404,7 @@ WITH [Waits]
               ,W1.SignalS
               ,W1.WaitCount
               ,W1.Percentage
-      HAVING SUM (W2.Percentage) - W1.Percentage &lt; 95; -- percentage threshold</CommandText>
+      HAVING SUM (W2.Percentage) - W1.Percentage &lt; 99; -- percentage threshold</CommandText>
       </Query>
       <Fields>
         <Field Name="WaitType">
@@ -9654,29 +9708,38 @@ SELECT
       ,ROW_NUMBER () OVER (ORDER BY wait_time_ms DESC) AS RowNum INTO
                                                                       #Waits2
   FROM sys.dm_os_wait_stats
-  WHERE wait_type NOT IN 
+  WHERE waiting_tasks_count &gt; 0 AND (wait_type NOT IN 
 (
         N'BROKER_EVENTHANDLER', N'BROKER_RECEIVE_WAITFOR', N'BROKER_TASK_STOP',
 		N'BROKER_TO_FLUSH', N'BROKER_TRANSMITTER', N'CHECKPOINT_QUEUE',
-        N'CHKPT', N'CLR_AUTO_EVENT', N'CLR_MANUAL_EVENT', N'CLR_SEMAPHORE', N'CXCONSUMER',N'CXPACKET',
+        N'CHKPT', N'CLR_AUTO_EVENT', N'CLR_MANUAL_EVENT', N'CLR_SEMAPHORE', 
+		-- mirroring
         N'DBMIRROR_DBM_EVENT', N'DBMIRROR_EVENTS_QUEUE', N'DBMIRROR_WORKER_QUEUE',
 		N'DBMIRRORING_CMD', N'DIRTY_PAGE_POLL', N'DISPATCHER_QUEUE_SEMAPHORE',
         N'EXECSYNC', N'FSAGENT', N'FT_IFTS_SCHEDULER_IDLE_WAIT', N'FT_IFTSHC_MUTEX',
+		-- hadr
         N'HADR_CLUSAPI_CALL', N'HADR_FILESTREAM_IOMGR_IOCOMPLETION', N'HADR_LOGCAPTURE_WAIT', 
 		N'HADR_NOTIFICATION_DEQUEUE', N'HADR_TIMER_TASK', N'HADR_WORK_QUEUE',
+
         N'KSOURCE_WAKEUP', N'LAZYWRITER_SLEEP', N'LOGMGR_QUEUE', 
 		N'MEMORY_ALLOCATION_EXT', N'ONDEMAND_TASK_QUEUE',
 		N'PARALLEL_REDO_DRAIN_WORKER', N'PARALLEL_REDO_LOG_CACHE', N'PARALLEL_REDO_TRAN_LIST',
 		N'PARALLEL_REDO_WORKER_SYNC', N'PARALLEL_REDO_WORKER_WAIT_WORK',
 		N'PREEMPTIVE_HADR_LEASE_MECHANISM', N'PREEMPTIVE_SP_SERVER_DIAGNOSTICS',
-		N'PREEMPTIVE_OS_LIBRARYOPS', N'PREEMPTIVE_OS_COMOPS', N'PREEMPTIVE_OS_CRYPTOPS',
-		N'PREEMPTIVE_OS_PIPEOPS', N'PREEMPTIVE_OS_AUTHENTICATIONOPS',
-		N'PREEMPTIVE_OS_GENERICOPS', N'PREEMPTIVE_OS_VERIFYTRUST',
-		N'PREEMPTIVE_OS_FILEOPS', N'PREEMPTIVE_OS_DEVICEOPS', N'PREEMPTIVE_OS_QUERYREGISTRY',
-		N'PREEMPTIVE_OS_WRITEFILE', N'PREEMPTIVE_OS_WRITEFILEGATHER',
-		N'PREEMPTIVE_XE_CALLBACKEXECUTE', N'PREEMPTIVE_XE_DISPATCHER',
-		N'PREEMPTIVE_XE_GETTARGETSTATE', N'PREEMPTIVE_XE_SESSIONCOMMIT',
-		N'PREEMPTIVE_XE_TARGETINIT', N'PREEMPTIVE_XE_TARGETFINALIZE',
+		-- preemptive
+        N'PREEMPTIVE_OS_FLUSHFILEBUFFERS', 
+		--N'PREEMPTIVE_OS_LIBRARYOPS', N'PREEMPTIVE_OS_COMOPS', N'PREEMPTIVE_OS_CRYPTOPS',
+		--N'PREEMPTIVE_OS_PIPEOPS', N'PREEMPTIVE_OS_AUTHENTICATIONOPS',
+		--N'PREEMPTIVE_OS_GENERICOPS', N'PREEMPTIVE_OS_VERIFYTRUST',
+		--N'PREEMPTIVE_OS_FILEOPS', N'PREEMPTIVE_OS_DEVICEOPS', N'PREEMPTIVE_OS_QUERYREGISTRY',
+		--N'PREEMPTIVE_OS_WRITEFILE', N'PREEMPTIVE_OS_WRITEFILEGATHER', 
+		--N'PREEMPTIVE_OS_RSFXDEVICEOPS',N'PREEMPTIVE_OS_LOADLIBRARY',
+		--N'PREEMPTIVE_OS_DELETESECURITYCONTEXT',N'PREEMPTIVE_OS_GETFILEATTRIBUTES',
+		--N'PREEMPTIVE_XE_CALLBACKEXECUTE', N'PREEMPTIVE_XE_DISPATCHER',
+		N'PREEMPTIVE_XE_GETTARGETSTATE', 
+		--N'PREEMPTIVE_XE_SESSIONCOMMIT',
+		--N'PREEMPTIVE_XE_TARGETINIT', N'PREEMPTIVE_XE_TARGETFINALIZE',
+		-- suite
         N'PWAIT_ALL_COMPONENTS_INITIALIZED', N'PWAIT_DIRECTLOGCONSUMER_GETNEXT',
 		N'PWAIT_EXTENSIBILITY_CLEANUP_TASK',
 		N'QDS_PERSIST_TASK_MAIN_LOOP_SLEEP', N'QDS_ASYNC_QUEUE',
@@ -9691,7 +9754,10 @@ SELECT
 		N'WAIT_FOR_RESULTS', N'WAITFOR', N'WAITFOR_TASKSHUTDOWN', N'WAIT_XTP_HOST_WAIT',
 		N'WAIT_XTP_OFFLINE_CKPT_NEW_LOG', N'WAIT_XTP_CKPT_CLOSE', N'WAIT_XTP_RECOVERY',
 		N'XE_BUFFERMGR_ALLPROCESSED_EVENT', N'XE_DISPATCHER_JOIN',
-        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT');
+        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT',
+
+		N'CXCONSUMER', N'CXPACKET', N'TRACEWRITE', N'OLEDB', N'ASYNC_NETWORK_IO',N'VDI_CLIENT_OTHER',N'ASYNC_IO_COMPLETION')
+		AND wait_type NOT LIKE N'PREEMPTIVE%');
     
 WITH [Waits]
     AS (SELECT

@@ -30,7 +30,9 @@ SELECT
       ,SERVERPROPERTY('Collation')AS Collation
       ,SERVERPROPERTY('IsFullTextInstalled')AS IsFullTextInstalled
       ,SERVERPROPERTY('IsIntegratedSecurityOnly')AS IsIntegratedSecurityOnly
-      ,SUBSTRING(@version,PATINDEX('% on %',@version)+4,100)AS [Operating System];</CommandText>
+      ,SUBSTRING(@version,PATINDEX('% on %',@version)+4,100)AS [Operating System]
+	  ,SERVERPROPERTY('IsHadrEnabled')AS IsHadrEnabled;
+</CommandText>
       </Query>
       <Fields>
         <Field Name="MachineName">
@@ -84,6 +86,10 @@ SELECT
         <Field Name="Operating_System">
           <DataField>Operating System</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IsHadrEnabled">
+          <DataField>IsHadrEnabled</DataField>
+          <rd:TypeName>System.Object</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -546,32 +552,41 @@ SELECT
       ,signal_wait_time_ms / 1000.0 AS SignalS
       ,waiting_tasks_count AS WaitCount
       ,100.0 * wait_time_ms / SUM (wait_time_ms) OVER () AS Percentage
-      ,ROW_NUMBER () OVER (ORDER BY wait_time_ms DESC) AS RowNum INTO
-                                                                      #Waits
+      ,ROW_NUMBER () OVER (ORDER BY wait_time_ms DESC) AS RowNum INTO #Waits
   FROM sys.dm_os_wait_stats
-  WHERE wait_type NOT IN 
+  WHERE waiting_tasks_count &gt; 0 AND wait_type NOT IN 
 (
         N'BROKER_EVENTHANDLER', N'BROKER_RECEIVE_WAITFOR', N'BROKER_TASK_STOP',
 		N'BROKER_TO_FLUSH', N'BROKER_TRANSMITTER', N'CHECKPOINT_QUEUE',
-        N'CHKPT', N'CLR_AUTO_EVENT', N'CLR_MANUAL_EVENT', N'CLR_SEMAPHORE', N'CXCONSUMER',N'CX_PACKET',
+        N'CHKPT', N'CLR_AUTO_EVENT', N'CLR_MANUAL_EVENT', N'CLR_SEMAPHORE', 
+N'CXCONSUMER',
+		-- mirroring
         N'DBMIRROR_DBM_EVENT', N'DBMIRROR_EVENTS_QUEUE', N'DBMIRROR_WORKER_QUEUE',
 		N'DBMIRRORING_CMD', N'DIRTY_PAGE_POLL', N'DISPATCHER_QUEUE_SEMAPHORE',
         N'EXECSYNC', N'FSAGENT', N'FT_IFTS_SCHEDULER_IDLE_WAIT', N'FT_IFTSHC_MUTEX',
+		-- hadr
         N'HADR_CLUSAPI_CALL', N'HADR_FILESTREAM_IOMGR_IOCOMPLETION', N'HADR_LOGCAPTURE_WAIT', 
 		N'HADR_NOTIFICATION_DEQUEUE', N'HADR_TIMER_TASK', N'HADR_WORK_QUEUE',
+
         N'KSOURCE_WAKEUP', N'LAZYWRITER_SLEEP', N'LOGMGR_QUEUE', 
 		N'MEMORY_ALLOCATION_EXT', N'ONDEMAND_TASK_QUEUE',
 		N'PARALLEL_REDO_DRAIN_WORKER', N'PARALLEL_REDO_LOG_CACHE', N'PARALLEL_REDO_TRAN_LIST',
 		N'PARALLEL_REDO_WORKER_SYNC', N'PARALLEL_REDO_WORKER_WAIT_WORK',
 		N'PREEMPTIVE_HADR_LEASE_MECHANISM', N'PREEMPTIVE_SP_SERVER_DIAGNOSTICS',
-		N'PREEMPTIVE_OS_LIBRARYOPS', N'PREEMPTIVE_OS_COMOPS', N'PREEMPTIVE_OS_CRYPTOPS',
-		N'PREEMPTIVE_OS_PIPEOPS', N'PREEMPTIVE_OS_AUTHENTICATIONOPS',
-		N'PREEMPTIVE_OS_GENERICOPS', N'PREEMPTIVE_OS_VERIFYTRUST',
-		N'PREEMPTIVE_OS_FILEOPS', N'PREEMPTIVE_OS_DEVICEOPS', N'PREEMPTIVE_OS_QUERYREGISTRY',
-		N'PREEMPTIVE_OS_WRITEFILE', N'PREEMPTIVE_OS_WRITEFILEGATHER',
-		N'PREEMPTIVE_XE_CALLBACKEXECUTE', N'PREEMPTIVE_XE_DISPATCHER',
-		N'PREEMPTIVE_XE_GETTARGETSTATE', N'PREEMPTIVE_XE_SESSIONCOMMIT',
-		N'PREEMPTIVE_XE_TARGETINIT', N'PREEMPTIVE_XE_TARGETFINALIZE',
+		-- preemptive
+        N'PREEMPTIVE_OS_FLUSHFILEBUFFERS', 
+		--N'PREEMPTIVE_OS_LIBRARYOPS', N'PREEMPTIVE_OS_COMOPS', N'PREEMPTIVE_OS_CRYPTOPS',
+		--N'PREEMPTIVE_OS_PIPEOPS', N'PREEMPTIVE_OS_AUTHENTICATIONOPS',
+		--N'PREEMPTIVE_OS_GENERICOPS', N'PREEMPTIVE_OS_VERIFYTRUST',
+		--N'PREEMPTIVE_OS_FILEOPS', N'PREEMPTIVE_OS_DEVICEOPS', N'PREEMPTIVE_OS_QUERYREGISTRY',
+		--N'PREEMPTIVE_OS_WRITEFILE', N'PREEMPTIVE_OS_WRITEFILEGATHER', 
+		--N'PREEMPTIVE_OS_RSFXDEVICEOPS',N'PREEMPTIVE_OS_LOADLIBRARY',
+		--N'PREEMPTIVE_OS_DELETESECURITYCONTEXT',N'PREEMPTIVE_OS_GETFILEATTRIBUTES',
+		--N'PREEMPTIVE_XE_CALLBACKEXECUTE', N'PREEMPTIVE_XE_DISPATCHER',
+		N'PREEMPTIVE_XE_GETTARGETSTATE', 
+		--N'PREEMPTIVE_XE_SESSIONCOMMIT',
+		--N'PREEMPTIVE_XE_TARGETINIT', N'PREEMPTIVE_XE_TARGETFINALIZE',
+		-- suite
         N'PWAIT_ALL_COMPONENTS_INITIALIZED', N'PWAIT_DIRECTLOGCONSUMER_GETNEXT',
 		N'PWAIT_EXTENSIBILITY_CLEANUP_TASK',
 		N'QDS_PERSIST_TASK_MAIN_LOOP_SLEEP', N'QDS_ASYNC_QUEUE',
@@ -586,7 +601,8 @@ SELECT
 		N'WAIT_FOR_RESULTS', N'WAITFOR', N'WAITFOR_TASKSHUTDOWN', N'WAIT_XTP_HOST_WAIT',
 		N'WAIT_XTP_OFFLINE_CKPT_NEW_LOG', N'WAIT_XTP_CKPT_CLOSE', N'WAIT_XTP_RECOVERY',
 		N'XE_BUFFERMGR_ALLPROCESSED_EVENT', N'XE_DISPATCHER_JOIN',
-        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT');    
+        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT');
+    
 WITH [Waits]
     AS (SELECT
                wait_type
@@ -1878,7 +1894,7 @@ END</CommandText>
                                       </ChartMinorTickMarks>
                                       <CrossAt>NaN</CrossAt>
                                       <Minimum>0</Minimum>
-                                      <Maximum>Non Numérique</Maximum>
+                                      <Maximum>NaN</Maximum>
                                       <ChartAxisScaleBreak>
                                         <Style />
                                       </ChartAxisScaleBreak>
@@ -2104,7 +2120,6 @@ END</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2369,7 +2384,7 @@ END</CommandText>
                                       </ChartMinorTickMarks>
                                       <CrossAt>NaN</CrossAt>
                                       <Minimum>0</Minimum>
-                                      <Maximum>Non Numérique</Maximum>
+                                      <Maximum>NaN</Maximum>
                                       <ChartAxisScaleBreak>
                                         <Style />
                                       </ChartAxisScaleBreak>
@@ -3457,6 +3472,7 @@ END</CommandText>
                                   <Value>=Fields!TotalMB.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3489,6 +3505,7 @@ END</CommandText>
                                   <Value>=Fields!FreeMB.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3907,6 +3924,7 @@ END</CommandText>
                                   <Value>=Fields!DbSizeMo.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3939,6 +3957,7 @@ END</CommandText>
                                   <Value>=Fields!DbGrowthMo.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3971,6 +3990,7 @@ END</CommandText>
                                   <Value>=Fields!LeftAfterGrowthMo.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5535,10 +5555,10 @@ END</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.2cm</Top>
-            <Left>4.28607cm</Left>
+            <Top>12.2008cm</Top>
+            <Left>4.21551cm</Left>
             <Height>0.651cm</Height>
-            <Width>9.74958cm</Width>
+            <Width>8.41791cm</Width>
             <ZIndex>24</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Fields!AgentXP.Value, "AgentXP")=0,false,true)</Hidden>
@@ -5553,6 +5573,170 @@ END</CommandText>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Rectangle Name="Rectangle7">
+            <ReportItems>
+              <Image Name="ServerReportLink3">
+                <Source>Embedded</Source>
+                <Value>Button</Value>
+                <Sizing>FitProportional</Sizing>
+                <ActionInfo>
+                  <Actions>
+                    <Action>
+                      <Drillthrough>
+                        <ReportName>AlwaysOn Report</ReportName>
+                      </Drillthrough>
+                    </Action>
+                  </Actions>
+                </ActionInfo>
+                <Left>3.3139cm</Left>
+                <Height>0.78521cm</Height>
+                <Width>0.79154cm</Width>
+                <ToolTip>Click for more details</ToolTip>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </Image>
+              <Textbox Name="Textbox2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Always On HADR</Value>
+                        <Style />
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox2</rd:DefaultName>
+                <Top>0.11647cm</Top>
+                <Height>0.64364cm</Height>
+                <Width>3.17279cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>0.15511cm</Top>
+            <Left>14.13904cm</Left>
+            <Height>0.78521cm</Height>
+            <Width>4.24279cm</Width>
+            <ZIndex>25</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!IsHadrEnabled.Value, "ServerProperties")=1,false,true)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Rectangle Name="Rectangle8">
+            <ReportItems>
+              <Textbox Name="Textbox3">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Jobs history planning</Value>
+                        <Style>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>OrangeRed</Color>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox2</rd:DefaultName>
+                <Top>0.10224cm</Top>
+                <Left>0.01332cm</Left>
+                <Height>0.64364cm</Height>
+                <Width>3.95879cm</Width>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Image Name="ServerReportLink6">
+                <Source>Embedded</Source>
+                <Value>Button</Value>
+                <Sizing>FitProportional</Sizing>
+                <ActionInfo>
+                  <Actions>
+                    <Action>
+                      <Drillthrough>
+                        <ReportName>Jobs planning report</ReportName>
+                      </Drillthrough>
+                    </Action>
+                  </Actions>
+                </ActionInfo>
+                <Top>0.01561cm</Top>
+                <Left>4.06912cm</Left>
+                <Height>0.78521cm</Height>
+                <Width>0.79154cm</Width>
+                <ZIndex>1</ZIndex>
+                <ToolTip>Click for more details</ToolTip>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </Image>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>12.00009cm</Top>
+            <Left>13.33972cm</Left>
+            <Height>0.81644cm</Height>
+            <Width>5.04211cm</Width>
+            <ZIndex>26</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!AgentXP.Value, "AgentXP")=0,true,false)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Rectangle Name="Rectangle9">
+            <KeepTogether>true</KeepTogether>
+            <Top>0.26141cm</Top>
+            <Left>5.52662cm</Left>
+            <Height>0.65381cm</Height>
+            <Width>7.12887cm</Width>
+            <ZIndex>27</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
         </ReportItems>
         <Height>21.01138cm</Height>
         <Style />
@@ -5812,7 +5996,7 @@ END</CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>SSMSInfoReports v6.5</Value>
+                      <Value>SSMSInfoReports v7.0</Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontSize>9pt</FontSize>

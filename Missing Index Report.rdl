@@ -635,7 +635,7 @@
                                   <Value>=Fields!DBName.Value</Value>
                                 </Parameter>
                                 <Parameter Name="ObjectId">
-                                  <Value>=Fields!Object_id.Value</Value>
+                                  <Value>=Fields!object_id.Value</Value>
                                 </Parameter>
                               </Parameters>
                             </Drillthrough>
@@ -1746,7 +1746,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SSMSInfoReports v6.5</Value>
+                  <Value>SSMSInfoReports v7.0</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
                     <FontSize>9pt</FontSize>
@@ -1923,7 +1923,8 @@ SELECT
 [MAJ PAR] DATAFLY - Arian Papillon
 [DATEMAJ] 20200201
 -------------------------------------------------------------------*/
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
+SET NOCOUNT ON;
 IF OBJECT_ID ('tempdb..#MissingIndex') IS NOT NULL
     BEGIN
         DROP TABLE
@@ -1935,7 +1936,7 @@ CREATE TABLE #MissingIndex  (
 	[last_user_seek] [datetime] NULL,
 	[last_user_scan] [datetime] NULL,
 	[nbrows] [bigint] NULL,
-	[Object_id] INT NULL,
+	[object_id] INT NULL,
 	[Database.Schema.Table] [nvarchar](4000) NULL,
 	[equality_columns] [nvarchar](4000) NULL,
 	[inequality_columns] [nvarchar](4000) NULL,
@@ -1957,7 +1958,7 @@ INSERT #MissingIndex
     last_user_seek,
     last_user_scan,
     nbrows,
-	[Object_id],
+	[object_id],
     [Database.Schema.Table],
     equality_columns,
     inequality_columns,
@@ -2043,8 +2044,7 @@ SELECT   DB_NAME(mid.database_id) AS DBName
 FROM     sys.dm_db_missing_index_group_stats AS migs WITH ( NOLOCK )
          INNER JOIN sys.dm_db_missing_index_groups AS mig WITH ( NOLOCK ) ON migs.group_handle = mig.index_group_handle
          INNER JOIN sys.dm_db_missing_index_details AS mid WITH ( NOLOCK ) ON mig.index_handle = mid.index_handle
-WHERE DB_NAME(mid.database_id)=@DatabaseName OR @DatabaseName IS NULL
-ORDER BY index_advantage DESC
+WHERE DB_NAME(mid.database_id)=@DatabaseName OR @DatabaseName IS NULL OR @DatabaseName = ''
 OPTION ( RECOMPILE );
 
 --SELECT * FROM #MissingIndex
@@ -2053,7 +2053,7 @@ DECLARE @DBName NVARCHAR(128),@objectid INT,@SQLCmd NVARCHAR(MAX)
 DECLARE TablesCursor CURSOR
     FOR SELECT DISTINCT
           DBName,
-		  Object_id
+		  object_id
           FROM #MissingIndex;
 OPEN TablesCursor;
 FETCH NEXT FROM TablesCursor INTO @DBName, @objectid;
@@ -2071,7 +2071,7 @@ SELECT DBName,
        last_user_seek,
        last_user_scan,
        nbrows,
-       Object_id,
+       object_id,
        [Database.Schema.Table],
        equality_columns,
        inequality_columns,
@@ -2083,7 +2083,8 @@ SELECT DBName,
        user_scans,
        avg_total_user_cost,
        avg_user_impact,
-       CreateCmd FROM #MissingIndex</CommandText>
+       CreateCmd FROM #MissingIndex
+ORDER BY index_advantage DESC;</CommandText>
       </Query>
       <Fields>
         <Field Name="DBName">
@@ -2106,8 +2107,8 @@ SELECT DBName,
           <DataField>nbrows</DataField>
           <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
-        <Field Name="Object_id">
-          <DataField>Object_id</DataField>
+        <Field Name="object_id">
+          <DataField>object_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="Database_Schema_Table">

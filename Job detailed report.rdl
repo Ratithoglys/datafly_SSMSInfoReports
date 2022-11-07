@@ -261,107 +261,125 @@ WHERE   jobs.name = @ObjectName</CommandText>
             <Value>=Parameters!ObjectName.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
-DECLARE @DOW TABLE
-    (
-      [dayNumber] TINYINT ,
-      [dayCode] TINYINT ,
-      [dayName] VARCHAR(3)
-    );
-INSERT  INTO @DOW
-        ( [dayNumber], [dayCode], [dayName] )
-SELECT  1, 1, 'Sun' 
-     UNION ALL SELECT 2, 2, 'Mon' 
-     UNION ALL SELECT 3, 4, 'Tue' 
-     UNION ALL SELECT 4, 8, 'Wed' 
-     UNION ALL SELECT 5, 16, 'Thu' 
-     UNION ALL SELECT 6, 32, 'Fri' 
-     UNION ALL SELECT 7, 64, 'Sat' ;
-
-
-SELECT  [Sched ID] = sched.schedule_id ,
-        [Sched name] = sched.name ,
-        [Sched Enabled] = sched.enabled ,
-        [Sched Frequency] = CASE sched.freq_type
-                              WHEN 1 THEN 'Once'
-                              WHEN 4
-                              THEN CASE WHEN sched.freq_interval &gt; 1
-                                        THEN 'Each '
-                                             + CAST(sched.freq_interval AS VARCHAR(2))
-                                             + ' days'
-                                        ELSE 'Daily'
-                                   END
-                              WHEN 8
-                              THEN CASE WHEN sched.freq_recurrence_factor &gt; 1
-                                        THEN 'Each '
-                                             + CAST(sched.freq_recurrence_factor AS VARCHAR(2))
-                                             + ' weeks'
-                                        ELSE 'Weekly'
-                                   END + ' : '
-                                   + STUFF(( SELECT ',' + [dayName]
-                                             FROM   @DOW
-                                             WHERE  ( sched.[freq_interval]
-                                                      &amp; [@DOW].[dayCode] ) = [@DOW].[dayCode]
-                                           FOR
-                                             XML PATH('')
-                                           ), 1, 1, '')
-                              WHEN 16 THEN 'Monthly'
-                              WHEN 32 THEN 'Monthly relative'
-                              WHEN 64 THEN 'When SQLServer Agent starts'
-                            END ,
-        [Subday Frequency] = CASE ( sched.freq_subday_interval )
-                               WHEN 0 
-                               THEN CASE WHEN sched.freq_type &lt;&gt; 64 THEN 'Once' + ', at '
-                                    + CONVERT(VARCHAR(8), CAST('20000101' AS DATETIME)
-                                    + ( active_start_time * 9
-                                        + active_start_time % 10000 * 6
-                                        + active_start_time % 100 * 10 )
-                                    / 216e4, 8) ELSE '' END
-                               ELSE CAST('Every '
-                                    + RIGHT(sched.freq_subday_interval, 2)
-                                    + ' ' + CASE ( sched.freq_subday_type )
-                                              WHEN 1 THEN 'Once'
-                                              WHEN 2 THEN 'Seconds'
-                                              WHEN 4 THEN 'Minutes'
-                                              WHEN 8 THEN 'Hours'
-                                            END AS VARCHAR(16)) + ', between '
-                                    + CONVERT(VARCHAR(8), CAST('20000101' AS DATETIME)
-                                    + ( active_start_time * 9
-                                        + active_start_time % 10000 * 6
-                                        + active_start_time % 100 * 10 )
-                                    / 216e4, 8) + ' and '
-                                    + CONVERT(VARCHAR(8), CAST('20000101' AS DATETIME)
-                                    + ( active_end_time * 9 + active_end_time
-                                        % 10000 * 6 + active_end_time % 100
-                                        * 10 ) / 216e4, 8)
-                             END ,
-        [Sched End] = CASE WHEN sched.active_end_date = 0
-                                OR sched.active_end_time = 0 THEN NULL
-                           ELSE CONVERT(DATETIME, RTRIM(sched.active_end_date))
-                                + ( sched.active_end_time * 9
-                                    + sched.active_end_time % 10000 * 6
-                                    + sched.active_end_time % 100 * 10 )
-                                / 216e4
-                      END
-FROM    msdb.dbo.sysjobs job
-        LEFT JOIN ( SELECT  job_schd.job_id ,
-                            sys_schd.name ,
-                            sys_schd.enabled ,
-                            sys_schd.schedule_id ,
-                            sys_schd.freq_type ,
-                            sys_schd.freq_subday_type ,
-                            sys_schd.freq_interval ,
-                            sys_schd.freq_relative_interval ,
-                            sys_schd.freq_recurrence_factor ,
-                            sys_schd.freq_subday_interval ,
-                            active_start_time ,
-                            active_end_time ,
-                            active_end_date = NULLIF(sys_schd.active_end_date,
-                                                     '99991231')
-                    FROM    msdb.dbo.sysjobschedules job_schd
-                            LEFT JOIN msdb.dbo.sysschedules sys_schd ON job_schd.schedule_id = sys_schd.schedule_id
-                  ) sched ON job.job_id = sched.job_id
-WHERE   job.name = @ObjectName</CommandText>
+        <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+DECLARE @DOW TABLE([dayNumber] TINYINT, [dayCode] TINYINT, [dayName] VARCHAR(3));
+INSERT INTO @DOW([dayNumber], [dayCode], [dayName])
+SELECT 1, 1, 'Sun'
+UNION ALL
+SELECT 2, 2, 'Mon'
+UNION ALL
+SELECT 3, 4, 'Tue'
+UNION ALL
+SELECT 4, 8, 'Wed'
+UNION ALL
+SELECT 5, 16, 'Thu'
+UNION ALL
+SELECT 6, 32, 'Fri'
+UNION ALL
+SELECT 7, 64, 'Sat';
+SELECT [Sched ID]=sched.schedule_id, [Sched name]=sched.name,
+  [Sched Enabled]=sched.enabled,
+  [Sched Frequency]=CASE sched.freq_type
+                      WHEN 1 THEN
+                           'Once'
+                      WHEN 4 THEN
+                           CASE
+                             WHEN sched.freq_interval&gt;1 THEN
+                                  'Each '
+                                  +CAST(sched.freq_interval AS VARCHAR(2))
+                                  +' days' ELSE 'Daily' END
+                      WHEN 8 THEN
+                           CASE
+                             WHEN sched.freq_recurrence_factor&gt;1 THEN
+                                  'Each '
+                                  +CAST(sched.freq_recurrence_factor AS VARCHAR(2))
+                                  +' weeks' ELSE 'Weekly' END+' : '
+                           +STUFF(
+                            (SELECT ','+[dayName]
+                             FROM @DOW
+                             WHERE(sched.[freq_interval]
+                                   &amp; [@DOW].[dayCode])=[@DOW].[dayCode]
+                            FOR XML PATH('')), 1, 1, '')
+                      WHEN 16 THEN
+                           'Monthly'
+                      WHEN 32 THEN
+                           'Monthly relative'
+                      WHEN 64 THEN
+                           'When SQLServer Agent starts' END,
+  [Subday Frequency]=CASE (sched.freq_subday_interval)
+                       WHEN 0 THEN
+                            CASE
+                              WHEN sched.freq_type&lt;&gt;64 THEN
+                                   'Once'+', at '
+                                   +CONVERT(
+                                      VARCHAR(8),
+                                      CAST('20000101' AS DATETIME)
+                                      +(active_start_time * 9
+                                        +active_start_time % 10000
+                                        * 6+active_start_time % 100
+                                        * 10)/ 216e4, 8)ELSE '' END ELSE
+                            --bug change 20200723
+                            CASE (sched.freq_subday_type)
+                              WHEN 1 THEN
+                                   'Once' -- si once, pas every !
+                              WHEN 2 THEN
+                                   'Every '
+                                   +RIGHT(sched.freq_subday_interval, 2)
+                                   +' Seconds'
+                              WHEN 4 THEN
+                                   'Every '
+                                   +RIGHT(sched.freq_subday_interval, 2)
+                                   +' Minutes'
+                              WHEN 8 THEN
+                                   'Every '
+                                   +RIGHT(sched.freq_subday_interval, 2)
+                                   +' Hours' END -- AS VARCHAR(16))
+                            +CASE
+                               WHEN sched.freq_subday_type=1 THEN
+                                    ', at '
+                                    +CONVERT(
+                                       VARCHAR(8),
+                                       CAST('20000101' AS DATETIME)
+                                       +(active_start_time * 9
+                                         +active_start_time % 10000
+                                         * 6+active_start_time % 100
+                                         * 10)/ 216e4, 8)ELSE
+                                    ', between '
+                                    +CONVERT(
+                                       VARCHAR(8),
+                                       CAST('20000101' AS DATETIME)
+                                       +(active_start_time * 9
+                                         +active_start_time % 10000
+                                         * 6+active_start_time % 100
+                                         * 10)/ 216e4, 8)+' and '
+                                    +CONVERT(
+                                       VARCHAR(8),
+                                       CAST('20000101' AS DATETIME)
+                                       +(active_end_time * 9
+                                         +active_end_time % 10000 * 6
+                                         +active_end_time % 100 * 10)
+                                       / 216e4, 8)END END,
+  [Sched End]=CASE
+                WHEN sched.active_end_date=0
+                     OR sched.active_end_time=0 THEN
+                     NULL ELSE
+                     CONVERT(DATETIME, RTRIM(sched.active_end_date))
+                     +(sched.active_end_time * 9
+                       +sched.active_end_time % 10000 * 6
+                       +sched.active_end_time % 100 * 10)/ 216e4 END
+FROM msdb.dbo.sysjobs job
+     LEFT JOIN(SELECT job_schd.job_id, sys_schd.name,
+                 sys_schd.enabled, sys_schd.schedule_id,
+                 sys_schd.freq_type, sys_schd.freq_subday_type,
+                 sys_schd.freq_interval,
+                 sys_schd.freq_relative_interval,
+                 sys_schd.freq_recurrence_factor,
+                 sys_schd.freq_subday_interval, active_start_time,
+                 active_end_time,
+                 active_end_date=NULLIF(sys_schd.active_end_date, '99991231')
+               FROM msdb.dbo.sysjobschedules job_schd
+                    LEFT JOIN msdb.dbo.sysschedules sys_schd ON job_schd.schedule_id=sys_schd.schedule_id) sched ON job.job_id=sched.job_id
+WHERE job.name=@ObjectName;</CommandText>
       </Query>
       <Fields>
         <Field Name="Sched_ID">
@@ -4790,7 +4808,7 @@ ORDER BY exec_id DESC
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>SSMSInfoReports v6.5</Value>
+                      <Value>SSMSInfoReports v7.0</Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontSize>9pt</FontSize>

@@ -2847,7 +2847,7 @@
 		iif(Fields!TableHasClustPrimaryKey.Value=1,"Tomato",
 			iif(Fields!TableHasClustUniqueCnst.Value,"Orange",
 				iif(Fields!TableHasClusteredColumnStore.Value=1,"Olive","PaleTurquoise"))),
-					"Tan"),"Pink")</BackgroundColor>
+					iif(Fields!IsView.Value=1,"CornflowerBlue","Tan")),"Pink")</BackgroundColor>
                       <PaddingLeft>2pt</PaddingLeft>
                       <PaddingRight>2pt</PaddingRight>
                       <PaddingTop>2pt</PaddingTop>
@@ -2868,7 +2868,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>=Fields!object_name.Value</Value>
+                                <Value>=Fields!object_name.Value + iif(Fields!IsView.Value=1," (Indexed View)","")</Value>
                                 <Style>
                                   <FontSize>8pt</FontSize>
                                 </Style>
@@ -2897,7 +2897,7 @@
 		iif(Fields!TableHasClustPrimaryKey.Value=1,"Tomato",
 			iif(Fields!TableHasClustUniqueCnst.Value,"Orange",
 				iif(Fields!TableHasClusteredColumnStore.Value=1,"Olive","PaleTurquoise"))),
-					"Tan"),"Pink")</BackgroundColor>
+					iif(Fields!IsView.Value=1,"CornflowerBlue","Tan")),"Pink")</BackgroundColor>
                           <PaddingLeft>2pt</PaddingLeft>
                           <PaddingRight>2pt</PaddingRight>
                           <PaddingTop>2pt</PaddingTop>
@@ -2948,7 +2948,7 @@
 		iif(Fields!TableHasClustPrimaryKey.Value=1,"Tomato",
 			iif(Fields!TableHasClustUniqueCnst.Value,"Orange",
 				iif(Fields!TableHasClusteredColumnStore.Value=1,"Olive","PaleTurquoise"))),
-					"Tan"),"Pink")</BackgroundColor>
+					iif(Fields!IsView.Value=1,"CornflowerBlue","Tan")),"Pink")</BackgroundColor>
                               <PaddingLeft>2pt</PaddingLeft>
                               <PaddingRight>2pt</PaddingRight>
                               <PaddingTop>2pt</PaddingTop>
@@ -3329,7 +3329,7 @@ iif(Parameters!NonClustFilter.Value="WithoutNonClust","-Tables without any non c
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SSMSInfoReports v6.5</Value>
+                  <Value>SSMSInfoReports v7.0</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
                     <FontSize>9pt</FontSize>
