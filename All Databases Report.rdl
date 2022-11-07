@@ -86,7 +86,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>7.86255cm</Width>
+              <Width>8.17598cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.09403cm</Width>
@@ -98,13 +98,13 @@
               <Width>3.01234cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.5838cm</Width>
+              <Width>2.26541cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.60753cm</Width>
+              <Width>3.01281cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.97326cm</Width>
+              <Width>1.58307cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -322,6 +322,9 @@
                   <CellContents>
                     <Textbox Name="Textbox52">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!VLFCount.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -365,9 +368,12 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Database_Name.Value</Value>
+                              <Value>=Fields!Database_Name.Value + Fields!SnapshotOf.Value + iif(Fields!state_desc.Value&lt;&gt;"ONLINE"," ("+Fields!state_desc.Value+")","")</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <TextDecoration>Underline</TextDecoration>
+                                <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -375,6 +381,20 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Database_Name</rd:DefaultName>
+                      <ActionInfo>
+                        <Actions>
+                          <Action>
+                            <Drillthrough>
+                              <ReportName>Database Report</ReportName>
+                              <Parameters>
+                                <Parameter Name="DatabaseName">
+                                  <Value>=Fields!Database_Name.Value</Value>
+                                </Parameter>
+                              </Parameters>
+                            </Drillthrough>
+                          </Action>
+                        </Actions>
+                      </ActionInfo>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -481,7 +501,7 @@
                                     </ChartDataPointValues>
                                     <ChartDataLabel>
                                       <Style>
-                                        <Format>n2</Format>
+                                        <Format>n0</Format>
                                       </Style>
                                       <UseValueAsLabel>true</UseValueAsLabel>
                                       <Visible>true</Visible>
@@ -1045,7 +1065,7 @@
                           <rd:DesignerMode>DataBar</rd:DesignerMode>
                           <DataSetName>DatabasesInfo</DataSetName>
                           <Height>0.6cm</Height>
-                          <Width>4.60753cm</Width>
+                          <Width>2.94706cm</Width>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1077,7 +1097,7 @@
                               <Value>=Fields!VLFCount.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=IIf(Fields!VLFCount.Value &gt; 100,"Red","Black")</Color>
+                                <Color>=IIf(Fields!VLFCount.Value &gt; 200,"Red","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1134,7 +1154,7 @@
         <Top>6.96519cm</Top>
         <Left>0.17215cm</Left>
         <Height>1.2cm</Height>
-        <Width>23.28831cm</Width>
+        <Width>23.29844cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -1180,28 +1200,31 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>4.60697cm</Width>
+              <Width>4.85845cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.97167cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.64205cm</Width>
+              <Width>1.7571cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.57176cm</Width>
+              <Width>1.54246cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>3.03197cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.79713cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.32599cm</Width>
+              <Width>1.14078cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.38875cm</Width>
+              <Width>1.28413cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.20354cm</Width>
+              <Width>1.12417cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.12479cm</Width>
@@ -1294,6 +1317,39 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox18">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>state</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox18</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox19">
                       <CanGrow>true</CanGrow>
                       <UserSort>
@@ -1304,7 +1360,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Compat. level</Value>
+                              <Value>Cpt level</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -1505,7 +1561,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>parameterization forced</Value>
+                              <Value>forced param</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -1538,7 +1594,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>snapshot isolation</Value>
+                              <Value>snapshot isol.</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -1571,7 +1627,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>read committed snapshot</Value>
+                              <Value>rcsi</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -1675,10 +1731,12 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Database_Name.Value</Value>
+                              <Value>=Fields!Database_Name.Value+Fields!SnapshotOf.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <TextDecoration>Underline</TextDecoration>
+                                <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1726,6 +1784,8 @@
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <TextDecoration>None</TextDecoration>
+                                <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1733,6 +1793,40 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>database_id</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="state_desc">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!state_desc.Value + iif(Fields!is_read_only.Value," , ReadOnly","")</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>state_desc</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1758,7 +1852,7 @@
                               <Value>=Fields!DB_Compatibility_Level.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=iif(Fields!DB_Compatibility_Level.Value=Fields!servercompat.Value,"Black","Red")</Color>
+                                <Color>=iif(Fields!DB_Compatibility_Level.Value &lt;&gt; Fields!servercompat.Value,"Red","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1791,7 +1885,7 @@
                               <Value>=Fields!collation_name.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=iif(Fields!collation_name.Value=Fields!servercollation.Value,"Black","Maroon")</Color>
+                                <Color>=iif(Fields!collation_name.Value &lt;&gt; Fields!servercollation.Value,"Blue","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1988,7 +2082,7 @@
                               <Value>=Fields!snapshot_isolation_state_desc.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=IIf(Fields!snapshot_isolation_state_desc.Value="ON" And Not (Fields!Database_Name.Value = "master" Or Fields!Database_Name.Value = "msdb") ,"Maroon","Black")</Color>
+                                <Color>=IIf(Fields!snapshot_isolation_state_desc.Value="ON","Blue","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2021,7 +2115,7 @@
                               <Value>=Fields!is_read_committed_snapshot_on.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Color>=IIf(Fields!is_read_committed_snapshot_on.Value=True,"Maroon","Black")</Color>
+                                <Color>=IIf(Fields!is_read_committed_snapshot_on.Value=True,"Blue","Black")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2114,6 +2208,7 @@
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -2221,7 +2316,7 @@
       </Textbox>
       <Line Name="Line10">
         <Top>9.48281cm</Top>
-        <Left>0.19836cm</Left>
+        <Left>0.20848cm</Left>
         <Height>0cm</Height>
         <Width>23.2621cm</Width>
         <ZIndex>8</ZIndex>
@@ -2273,7 +2368,7 @@
               <Width>7.86255cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.35641cm</Width>
+              <Width>2.24222cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.0124cm</Width>
@@ -2282,10 +2377,13 @@
               <Width>1.37125cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>10.06424cm</Width>
+              <Width>0.88236cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.62146cm</Width>
+              <Width>9.19458cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.72295cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -2426,6 +2524,39 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox16">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>copy</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox16</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox354">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -2497,7 +2628,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="database_name">
+                    <Textbox Name="database_name_full_backup">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -2514,7 +2645,6 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>database_name</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -2629,6 +2759,38 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="is_copy_only">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!is_copy_only.Value</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>is_copy_only</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="physical_device_name">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -2697,6 +2859,7 @@
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -3167,9 +3330,11 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Database_Name.Value</Value>
+                              <Value>=Fields!Database_Name.Value + " "+Fields!SnapshotOf.Value + iif(Fields!state_desc.Value&lt;&gt;"ONLINE"," ("+Fields!state_desc.Value+")","")</Value>
                               <Style>
                                 <TextDecoration>Underline</TextDecoration>
+                                <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3214,7 +3379,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Recovery_Model.Value</Value>
-                              <Style />
+                              <Style>
+                                <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -3263,7 +3431,7 @@
                                     </ChartDataPointValues>
                                     <ChartDataLabel>
                                       <Style>
-                                        <Format>n2</Format>
+                                        <Format>n0</Format>
                                       </Style>
                                       <UseValueAsLabel>true</UseValueAsLabel>
                                       <Visible>true</Visible>
@@ -4731,7 +4899,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="database_name2">
+                    <Textbox Name="database_name_log_backup">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -4748,7 +4916,6 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>database_name</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -5187,7 +5354,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SSMSInfoReports v7.0</Value>
+                  <Value>SSMSInfoReports v8.0</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
                     <FontSize>9pt</FontSize>
@@ -5324,8 +5491,14 @@ SERVERPROPERTY('IsIntegratedSecurityOnly') AS [IsIntegratedSecurityOnly]; </Comm
     <DataSet Name="DatabasesInfo">
       <Query>
         <DataSourceName>master</DataSourceName>
-        <CommandText>DECLARE
+        <CommandText>DECLARE 
    @sqlcmd nvarchar (max) ;
+IF OBJECT_ID('tempdb..#VLFCountResults') IS NOT NULL
+    BEGIN
+        DROP TABLE
+             #VLFCountResults;
+    END;
+CREATE TABLE #VLFCountResults(DatabaseID int, DatabaseName sysname, VLFCount int);
 IF EXISTS (SELECT
                   *
              WHERE CONVERT (varchar (128) ,SERVERPROPERTY ('ProductVersion')) &gt;= '11%'
@@ -5336,7 +5509,6 @@ CREATE TABLE #VLFInfo (RecoveryUnitID int, FileID  int,
 					   FileSize bigint, StartOffset bigint,
 					   FSeqNo      bigint, [Status]    bigint,
 					   Parity      bigint, CreateLSN   numeric(38));
-CREATE TABLE #VLFCountResults(DatabaseID int, DatabaseName sysname, VLFCount int);
 EXEC sp_MSforeachdb N''Use [?]; 
 				INSERT INTO #VLFInfo 
 				EXEC sp_executesql N''''DBCC LOGINFO([?])''''; 	 
@@ -5353,9 +5525,6 @@ CREATE TABLE #VLFInfo (FileID  int,
 					   FileSize bigint, StartOffset bigint,
 					   FSeqNo      bigint, [Status]    bigint,
 					   Parity      bigint, CreateLSN   numeric(38));
-
-CREATE TABLE #VLFCountResults(DatabaseID int,DatabaseName sysname, VLFCount int);
-	 
 EXEC sp_MSforeachdb N''Use [?]; 
 				INSERT INTO #VLFInfo 
 				EXEC sp_executesql N''''DBCC LOGINFO([?])''''; 
@@ -5365,43 +5534,57 @@ EXEC sp_MSforeachdb N''Use [?];
 				TRUNCATE TABLE #VLFInfo;''	 
 ';
     END;
-SET @sqlcmd = @sqlcmd + N'
-SELECT
-       db.database_id
-      ,db.name AS [Database Name]
-      ,db.recovery_model_desc AS [Recovery Model]
-      ,db.log_reuse_wait_desc AS [Log Reuse Wait Description]
-      ,ls.cntr_value AS [Log Size (KB)]
-      ,lu.cntr_value AS [Log Used (KB)]
-      ,CAST (CAST (lu.cntr_value AS float) / CAST (ls.cntr_value AS float) AS decimal (18,2)) * 100 AS [Log Used %]
-      ,db.compatibility_level AS [DB Compatibility Level]
-      ,db.page_verify_option_desc AS [Page Verify Option]
-      ,db.is_auto_create_stats_on
-      ,db.is_auto_update_stats_on
-      ,db.is_auto_update_stats_async_on
-      ,db.is_parameterization_forced
-      ,db.snapshot_isolation_state_desc
-      ,db.is_read_committed_snapshot_on
-      ,db.is_auto_close_on
-      ,db.is_auto_shrink_on
-      ,vlf.VLFCount
-      ,db.collation_name
-      ,serverproperty(''collation'') as servercollation
-      ,CAST(LEFT(CONVERT(VARCHAR(128), SERVERPROPERTY(''ProductVersion'')), CHARINDEX(''.'', CONVERT(VARCHAR(128), SERVERPROPERTY(''ProductVersion'')))-1)+''0'' AS TINYINT) AS servercompat
-  FROM
-       sys.databases AS db WITH (NOLOCK) INNER JOIN sys.dm_os_performance_counters AS lu WITH (NOLOCK) 
-       ON db.name = lu.instance_name
-                                         INNER JOIN sys.dm_os_performance_counters AS ls WITH (NOLOCK) 
-       ON db.name = ls.instance_name
-                                         JOIN #VLFCountResults vlf
-       ON db.database_id = vlf.DatabaseID
-  WHERE lu.counter_name LIKE N''Log File(s) Used Size (KB)%''
-    AND ls.counter_name LIKE N''Log File(s) Size (KB)%''
-    AND ls.cntr_value &gt; 0
-    ORDER BY db.name
-  OPTION (
-         RECOMPILE) ;'
-EXEC (@sqlcmd) ; </CommandText>
+EXEC (@sqlcmd);
+SELECT db.database_id
+     , db.name AS [Database Name]
+     , db.recovery_model_desc AS [Recovery Model]
+     , db.log_reuse_wait_desc AS [Log Reuse Wait Description]
+     , ls.cntr_value AS [Log Size (KB)]
+     , lu.cntr_value AS [Log Used (KB)]
+     ,CAST (CAST (lu.cntr_value AS float) / CAST (CASE WHEN ls.cntr_value = 0 THEN 1 ELSE ls.cntr_value END AS float) AS decimal (18,2)) * 100 AS [Log Used %]
+     , db.compatibility_level AS [DB Compatibility Level]
+     , db.page_verify_option_desc AS [Page Verify Option]
+     , db.is_auto_create_stats_on
+     , db.is_auto_update_stats_on
+     , db.is_auto_update_stats_async_on
+     , db.is_parameterization_forced
+     , db.snapshot_isolation_state_desc
+     , db.is_read_committed_snapshot_on
+     , db.is_auto_close_on
+     , db.is_auto_shrink_on
+     , vlf.VLFCount
+     , db.collation_name
+     , SERVERPROPERTY('collation') AS servercollation
+     , CAST(LEFT(CONVERT(VARCHAR(128), SERVERPROPERTY('ProductVersion')), CHARINDEX(
+                                                                                       '.'
+                                                                                     , CONVERT(
+                                                                                                  VARCHAR(128)
+                                                                                                , SERVERPROPERTY('ProductVersion')
+                                                                                              )
+                                                                                   ) - 1) + '0' AS TINYINT) AS servercompat
+     , CASE
+           WHEN db.source_database_id IS NOT NULL THEN
+               1
+           ELSE
+               0
+       END AS is_db_snapshot
+     , CASE
+                     WHEN db.source_database_id IS NOT NULL THEN
+                         ' (DBSnapshot of ' + DB_NAME(db.source_database_id) + ')'
+                     ELSE
+                         ''
+                 END AS SnapshotOf
+     , db.is_read_only
+	 , db.state_desc
+FROM sys.databases AS db WITH (NOLOCK)
+    LEFT JOIN sys.dm_os_performance_counters AS lu WITH (NOLOCK)
+        ON db.name = lu.instance_name AND lu.counter_name LIKE N'Log File(s) Used Size (KB)%'
+    LEFT JOIN sys.dm_os_performance_counters AS ls WITH (NOLOCK)
+        ON db.name = ls.instance_name AND ls.counter_name LIKE N'Log File(s) Size (KB)%'
+    LEFT JOIN #VLFCountResults vlf
+        ON db.database_id = vlf.DatabaseID
+ORDER BY db.name
+OPTION (RECOMPILE);</CommandText>
       </Query>
       <Fields>
         <Field Name="database_id">
@@ -5487,6 +5670,22 @@ EXEC (@sqlcmd) ; </CommandText>
         <Field Name="servercollation">
           <DataField>servercollation</DataField>
           <rd:TypeName>System.Object</rd:TypeName>
+        </Field>
+        <Field Name="is_db_snapshot">
+          <DataField>is_db_snapshot</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="is_read_only">
+          <DataField>is_read_only</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="SnapshotOf">
+          <DataField>SnapshotOf</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="state_desc">
+          <DataField>state_desc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -5594,7 +5793,7 @@ SELECT
        ,SUM(CASE WHEN mf.[File Usage] &lt;&gt; 'LOG' THEN 0
                  ELSE [File Growth (MB)]
             END) OVER ( PARTITION BY db.database_id ) AS [Log Growth (MB)]
-       ,db.recovery_model_desc AS [Recovery Model]
+       ,db.recovery_model_desc +CASE WHEN db.source_database_id IS NOT NULL THEN ' (DBSnapshot)' WHEN db.is_read_only = 1 THEN ' (ReadOnly)' ELSE '' END AS [Recovery Model]
        ,db.log_reuse_wait_desc AS [Log Reuse Wait Description]
        ,db.compatibility_level AS [DB Compatibility Level]
        ,db.page_verify_option_desc AS [Page Verify Option]
@@ -5606,6 +5805,10 @@ SELECT
        ,db.is_read_committed_snapshot_on
        ,db.is_auto_close_on
        ,db.is_auto_shrink_on
+	   ,CASE WHEN db.source_database_id IS NOT NULL THEN 1 ELSE 0 END AS is_db_snapshot
+      ,CASE WHEN db.source_database_id IS NOT NULL THEN ' (DBSnapshot of '+DB_NAME(db.source_database_id)+')' ELSE '' END AS SnapshotOf
+	   ,db.is_read_only
+	   ,db.state_desc
        -- files section
 	   ,mf.sort_id
        ,mf.file_id
@@ -5733,6 +5936,22 @@ OPTION  ( RECOMPILE );</CommandText>
           <DataField>file_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="is_db_snapshot">
+          <DataField>is_db_snapshot</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SnapshotOf">
+          <DataField>SnapshotOf</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="is_read_only">
+          <DataField>is_read_only</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="state_desc">
+          <DataField>state_desc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="sort_id">
           <DataField>sort_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -5779,10 +5998,11 @@ OPTION  ( RECOMPILE );</CommandText>
       <Query>
         <DataSourceName>master</DataSourceName>
         <CommandText>SELECT CASE
-         WHEN sd.name IS NULL THEN
+         WHEN sd.name IS NULL THEN 
               '*** Backup of non existant db : ' ELSE '' END+COALESCE(sd.name, lb.database_name) AS database_name,
   lb.backup_finish_date AS backup_date,
-  CASE WHEN backup_sequence=2 THEN '-&gt;' ELSE '' END+Type AS type, device, is_copy_only,physical_device_name,
+  CASE WHEN backup_sequence=2 THEN '-&gt;' ELSE '' END+Type AS type, device, 
+  CASE is_copy_only WHEN 1 THEN 'Y' WHEN 0 THEN 'N' ELSE '' END AS is_copy_only,physical_device_name,
   position, backup_sequence, color, colordevice
 FROM master.sys.databases sd
      FULL JOIN (SELECT ROW_NUMBER() OVER (PARTITION BY database_name ORDER BY backup_finish_date DESC) AS backup_sequence,
@@ -5852,7 +6072,7 @@ FROM master.sys.databases sd
                      WHERE IBA.RowNumber=1
 					 ) seq ) lb
        ON sd.name=lb.database_name
-WHERE sd.name&lt;&gt;'tempdb'
+WHERE sd.name&lt;&gt;'tempdb' AND sd.source_database_id IS NULL
 ORDER BY database_name, backup_sequence;</CommandText>
       </Query>
       <Fields>
@@ -5878,7 +6098,7 @@ ORDER BY database_name, backup_sequence;</CommandText>
         </Field>
         <Field Name="is_copy_only">
           <DataField>is_copy_only</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="position">
           <DataField>position</DataField>

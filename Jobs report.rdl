@@ -808,7 +808,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                   <Color>LightGrey</Color>
                                   <Style>None</Style>
                                 </Border>
-                                <BackgroundColor>Khaki</BackgroundColor>
+                                <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                 <BackgroundGradientType>None</BackgroundGradientType>
                               </Style>
                             </Chart>
@@ -819,7 +819,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>Khaki</BackgroundColor>
+                            <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                           </Style>
                         </Rectangle>
                       </CellContents>
@@ -873,7 +873,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>4.15344cm</Size>
+                    <Size>4.39644cm</Size>
                     <CellContents>
                       <Textbox Name="Textbox155">
                         <CanGrow>true</CanGrow>
@@ -1095,7 +1095,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                       <TablixMembers>
                                         <TablixMember>
                                           <TablixHeader>
-                                            <Size>2.36771cm</Size>
+                                            <Size>2.12783cm</Size>
                                             <CellContents>
                                               <Textbox Name="Textbox172">
                                                 <CanGrow>true</CanGrow>
@@ -1237,7 +1237,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>4.15344cm</Size>
+                        <Size>4.39644cm</Size>
                         <CellContents>
                           <Textbox Name="Job_Name1">
                             <CanGrow>true</CanGrow>
@@ -1279,7 +1279,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                 <Color>LightGrey</Color>
                                 <Style>Solid</Style>
                               </Border>
-                              <BackgroundColor>Khaki</BackgroundColor>
+                              <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                               <PaddingLeft>2pt</PaddingLeft>
                               <PaddingRight>2pt</PaddingRight>
                               <PaddingTop>2pt</PaddingTop>
@@ -1405,7 +1405,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                         <Color>LightGrey</Color>
                                         <Style>None</Style>
                                       </Border>
-                                      <BackgroundColor>Khaki</BackgroundColor>
+                                      <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                     </Style>
                                   </GaugePanel>
                                 </ReportItems>
@@ -1415,7 +1415,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                     <Color>LightGrey</Color>
                                     <Style>Solid</Style>
                                   </Border>
-                                  <BackgroundColor>Khaki</BackgroundColor>
+                                  <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                 </Style>
                               </Rectangle>
                             </CellContents>
@@ -1537,7 +1537,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                             <Color>LightGrey</Color>
                                             <Style>None</Style>
                                           </Border>
-                                          <BackgroundColor>Khaki</BackgroundColor>
+                                          <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                         </Style>
                                       </GaugePanel>
                                     </ReportItems>
@@ -1547,7 +1547,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                         <Color>LightGrey</Color>
                                         <Style>Solid</Style>
                                       </Border>
-                                      <BackgroundColor>Khaki</BackgroundColor>
+                                      <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                     </Style>
                                   </Rectangle>
                                 </CellContents>
@@ -1579,7 +1579,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                             <Color>LightGrey</Color>
                                             <Style>Solid</Style>
                                           </Border>
-                                          <BackgroundColor>Khaki</BackgroundColor>
+                                          <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                           <PaddingLeft>2pt</PaddingLeft>
                                           <PaddingRight>2pt</PaddingRight>
                                           <PaddingTop>2pt</PaddingTop>
@@ -1743,7 +1743,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                                     <Color>LightGrey</Color>
                                                     <Style>None</Style>
                                                   </Border>
-                                                  <BackgroundColor>Khaki</BackgroundColor>
+                                                  <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                                 </Style>
                                               </GaugePanel>
                                             </ReportItems>
@@ -1753,7 +1753,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                                 <Color>LightGrey</Color>
                                                 <Style>Solid</Style>
                                               </Border>
-                                              <BackgroundColor>Khaki</BackgroundColor>
+                                              <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                             </Style>
                                           </Rectangle>
                                         </CellContents>
@@ -1785,7 +1785,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                                     <Color>LightGrey</Color>
                                                     <Style>Solid</Style>
                                                   </Border>
-                                                  <BackgroundColor>Khaki</BackgroundColor>
+                                                  <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                                   <PaddingLeft>2pt</PaddingLeft>
                                                   <PaddingRight>2pt</PaddingRight>
                                                   <PaddingTop>2pt</PaddingTop>
@@ -1797,7 +1797,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                           <TablixMembers>
                                             <TablixMember>
                                               <TablixHeader>
-                                                <Size>2.36771cm</Size>
+                                                <Size>2.12783cm</Size>
                                                 <CellContents>
                                                   <Textbox Name="Min_Duration">
                                                     <CanGrow>true</CanGrow>
@@ -1823,7 +1823,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                                         <Color>LightGrey</Color>
                                                         <Style>Solid</Style>
                                                       </Border>
-                                                      <BackgroundColor>Khaki</BackgroundColor>
+                                                      <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                                       <PaddingLeft>2pt</PaddingLeft>
                                                       <PaddingRight>2pt</PaddingRight>
                                                       <PaddingTop>2pt</PaddingTop>
@@ -1861,7 +1861,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                                             <Color>LightGrey</Color>
                                                             <Style>Solid</Style>
                                                           </Border>
-                                                          <BackgroundColor>Khaki</BackgroundColor>
+                                                          <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                                           <PaddingLeft>2pt</PaddingLeft>
                                                           <PaddingRight>2pt</PaddingRight>
                                                           <PaddingTop>2pt</PaddingTop>
@@ -1899,7 +1899,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                                                                 <Color>LightGrey</Color>
                                                                 <Style>Solid</Style>
                                                               </Border>
-                                                              <BackgroundColor>Khaki</BackgroundColor>
+                                                              <BackgroundColor>=iif(Fields!Job_Enabled.Value=1,"Khaki","LemonChiffon")</BackgroundColor>
                                                               <PaddingLeft>2pt</PaddingLeft>
                                                               <PaddingRight>2pt</PaddingRight>
                                                               <PaddingTop>2pt</PaddingTop>
@@ -1941,7 +1941,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
-                        <Size>4.15344cm</Size>
+                        <Size>4.39644cm</Size>
                         <CellContents>
                           <Textbox Name="Sched_ID">
                             <CanGrow>true</CanGrow>
@@ -2143,7 +2143,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                               <TablixMembers>
                                 <TablixMember>
                                   <TablixHeader>
-                                    <Size>14.46568cm</Size>
+                                    <Size>14.2258cm</Size>
                                     <CellContents>
                                       <Textbox Name="Sched_Frequency">
                                         <CanGrow>true</CanGrow>
@@ -2194,7 +2194,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
             <Top>1.53141cm</Top>
             <Left>0.33005cm</Left>
             <Height>1.8cm</Height>
-            <Width>26.25786cm</Width>
+            <Width>26.26098cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2461,7 +2461,7 @@ ORDER BY jobdata.[Job Name], jobdata.[Sched ID], jobhist.nexec DESC;</CommandTex
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>SSMSInfoReports v7.0</Value>
+                      <Value>SSMSInfoReports v8.0</Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontSize>9pt</FontSize>

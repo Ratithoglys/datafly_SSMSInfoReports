@@ -2610,7 +2610,7 @@
         <Top>11.32511cm</Top>
         <Left>0.24389cm</Left>
         <Height>5cm</Height>
-        <Width>9.05805cm</Width>
+        <Width>9.22235cm</Width>
         <ZIndex>19</ZIndex>
         <Style>
           <Border>
@@ -3565,7 +3565,9 @@
                     <Y>=Sum(Fields!I_O_Percent.Value)</Y>
                   </ChartDataPointValues>
                   <ChartDataLabel>
-                    <Style />
+                    <Style>
+                      <Format>0;(0)</Format>
+                    </Style>
                     <UseValueAsLabel>true</UseValueAsLabel>
                     <Visible>true</Visible>
                   </ChartDataLabel>
@@ -3797,10 +3799,10 @@
           </Style>
         </ChartNoDataMessage>
         <DataSetName>IOPerDB</DataSetName>
-        <Top>46.17044cm</Top>
-        <Left>0.23381cm</Left>
-        <Height>8cm</Height>
-        <Width>18cm</Width>
+        <Top>55.27817cm</Top>
+        <Left>0.29879cm</Left>
+        <Height>5.53938cm</Height>
+        <Width>8.9516cm</Width>
         <ZIndex>24</ZIndex>
         <Style>
           <Border>
@@ -3847,7 +3849,9 @@
                     <Y>=Sum(Fields!Buffer_Pool_Percent.Value)</Y>
                   </ChartDataPointValues>
                   <ChartDataLabel>
-                    <Style />
+                    <Style>
+                      <Format>0;(0)</Format>
+                    </Style>
                     <UseValueAsLabel>true</UseValueAsLabel>
                     <Visible>true</Visible>
                   </ChartDataLabel>
@@ -4079,10 +4083,10 @@
           </Style>
         </ChartNoDataMessage>
         <DataSetName>BufferPerDB</DataSetName>
-        <Top>54.55773cm</Top>
-        <Left>0.23381cm</Left>
-        <Height>8cm</Height>
-        <Width>18cm</Width>
+        <Top>49.5624cm</Top>
+        <Left>9.64263cm</Left>
+        <Height>5.51292cm</Height>
+        <Width>9.01415cm</Width>
         <ZIndex>25</ZIndex>
         <Style>
           <Border>
@@ -4129,7 +4133,9 @@
                     <Y>=Sum(Fields!CPU_Percent.Value)</Y>
                   </ChartDataPointValues>
                   <ChartDataLabel>
-                    <Style />
+                    <Style>
+                      <Format>0;(0)</Format>
+                    </Style>
                     <UseValueAsLabel>true</UseValueAsLabel>
                     <Visible>true</Visible>
                   </ChartDataLabel>
@@ -4361,10 +4367,10 @@
           </Style>
         </ChartNoDataMessage>
         <DataSetName>CPUPerDB</DataSetName>
-        <Top>62.93558cm</Top>
-        <Left>0.26027cm</Left>
-        <Height>8cm</Height>
-        <Width>18cm</Width>
+        <Top>55.27817cm</Top>
+        <Left>9.64263cm</Left>
+        <Height>5.53938cm</Height>
+        <Width>8.98711cm</Width>
         <ZIndex>26</ZIndex>
         <Style>
           <Border>
@@ -4395,7 +4401,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox229</rd:DefaultName>
-        <Top>44.76079cm</Top>
+        <Top>48.25329cm</Top>
         <Left>0.23381cm</Left>
         <Height>0.78521cm</Height>
         <Width>7.22898cm</Width>
@@ -4411,7 +4417,7 @@
         </Style>
       </Textbox>
       <Line Name="Line4">
-        <Top>45.72238cm</Top>
+        <Top>49.21488cm</Top>
         <Left>0.23381cm</Left>
         <Height>0cm</Height>
         <Width>18.41289cm</Width>
@@ -7894,9 +7900,9 @@
         </ChartNoDataMessage>
         <DataSetName>WaitStats_NoCXPACKET</DataSetName>
         <Top>11.32511cm</Top>
-        <Left>9.80138cm</Left>
+        <Left>9.64263cm</Left>
         <Height>5cm</Height>
-        <Width>8.78194cm</Width>
+        <Width>8.94069cm</Width>
         <ZIndex>42</ZIndex>
         <Style>
           <Border>
@@ -7927,7 +7933,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox229</rd:DefaultName>
-        <Top>41.59716cm</Top>
+        <Top>44.45466cm</Top>
         <Left>0.24389cm</Left>
         <Height>0.78521cm</Height>
         <Width>5.05684cm</Width>
@@ -7955,7 +7961,7 @@
             </Action>
           </Actions>
         </ActionInfo>
-        <Top>41.59717cm</Top>
+        <Top>44.45467cm</Top>
         <Left>5.43316cm</Left>
         <Height>0.78521cm</Height>
         <Width>0.79154cm</Width>
@@ -7971,57 +7977,31 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.5cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>4.77382cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.93014cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.94758cm</Width>
+              <Width>2.04773cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>9.44602cm</Width>
+              <Width>1.7414cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.20619cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.58134cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.54312cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
               <Height>0.6cm</Height>
               <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox4">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Database</Value>
-                              <Style>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox4</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="Textbox9">
@@ -8088,6 +8068,38 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>index advantage</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox51">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -8095,7 +8107,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>avg impact</Value>
+                              <Value>user impact</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -8120,14 +8132,1040 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox54">
+                    <Textbox Name="Textbox59">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Create Cmd</Value>
+                              <Value>unique compiles</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox59</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox62">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>user seeks</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox62</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox65">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>user scans</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox65</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Database_Schema_Table1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!Database_Schema_Table.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Database_Schema_Table1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="nbrows1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!nbrows.Value)</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>nbrows1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="index_advantage1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!index_advantage.Value)</Value>
+                              <Style>
+                                <Format>0;(0)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>index_advantage1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="avg_user_impact1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!avg_user_impact.Value)</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>avg_user_impact1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="unique_compiles1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!unique_compiles.Value)</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>unique_compiles1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="user_seeks">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!user_seeks.Value)</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>user_seeks</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="user_scans2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(Fields!user_scans.Value)</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>user_scans2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Database_Schema_Table">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Database_Schema_Table</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="CreateCmd">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!CreateCmd.Value</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>CreateCmd</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <ColSpan>6</ColSpan>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <TablixHeader>
+                <Size>2.5cm</Size>
+                <CellContents>
+                  <Textbox Name="Textbox20">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>Database</Value>
+                            <Style>
+                              <FontWeight>Bold</FontWeight>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox20</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+              <TablixMembers>
+                <TablixMember />
+              </TablixMembers>
+              <KeepWithGroup>After</KeepWithGroup>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Id">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Id.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!Id.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixHeader>
+                <Size>2.5cm</Size>
+                <CellContents>
+                  <Textbox Name="DBName1">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>=Fields!DBName.Value</Value>
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>DBName1</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Détails4" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>MissingIndex</DataSetName>
+        <Top>46.13606cm</Top>
+        <Left>0.25408cm</Left>
+        <Height>1.8cm</Height>
+        <Width>18.32374cm</Width>
+        <ZIndex>45</ZIndex>
+        <Style>
+          <Border>
+            <Color>Orange</Color>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Tablix>
+      <Textbox Name="Textbox39">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Top 10 Missing Indexes</Value>
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                  <TextDecoration>Underline</TextDecoration>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>45.39495cm</Top>
+        <Left>0.21685cm</Left>
+        <Height>0.6cm</Height>
+        <Width>7.16826cm</Width>
+        <ZIndex>46</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Line Name="Line8">
+        <Top>45.39495cm</Top>
+        <Left>0.23381cm</Left>
+        <Height>0cm</Height>
+        <Width>18.41289cm</Width>
+        <ZIndex>47</ZIndex>
+        <Style>
+          <Border>
+            <Color>Orange</Color>
+            <Style>Solid</Style>
+            <Width>2pt</Width>
+          </Border>
+        </Style>
+      </Line>
+      <Chart Name="Chart10">
+        <ChartCategoryHierarchy>
+          <ChartMembers>
+            <ChartMember>
+              <Group Name="ChartGroup3" />
+              <Label />
+            </ChartMember>
+          </ChartMembers>
+        </ChartCategoryHierarchy>
+        <ChartSeriesHierarchy>
+          <ChartMembers>
+            <ChartMember>
+              <Group Name="Chart6_SeriesGroup2">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Database_Name.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!DataAllocated.Value</Value>
+                  <Direction>Descending</Direction>
+                </SortExpression>
+              </SortExpressions>
+              <Label>=Fields!Database_Name.Value</Label>
+            </ChartMember>
+          </ChartMembers>
+        </ChartSeriesHierarchy>
+        <ChartData>
+          <ChartSeriesCollection>
+            <ChartSeries Name="PercentAllocated">
+              <ChartDataPoints>
+                <ChartDataPoint>
+                  <ChartDataPointValues>
+                    <Y>=Sum(Fields!PercentAllocated.Value)</Y>
+                  </ChartDataPointValues>
+                  <ChartDataLabel>
+                    <Style>
+                      <Format>0;(0)</Format>
+                    </Style>
+                    <UseValueAsLabel>true</UseValueAsLabel>
+                    <Visible>true</Visible>
+                  </ChartDataLabel>
+                  <Style />
+                  <ChartMarker>
+                    <Style />
+                  </ChartMarker>
+                  <DataElementOutput>Output</DataElementOutput>
+                </ChartDataPoint>
+              </ChartDataPoints>
+              <Type>Shape</Type>
+              <Style />
+              <ChartEmptyPoints>
+                <Style />
+                <ChartMarker>
+                  <Style />
+                </ChartMarker>
+                <ChartDataLabel>
+                  <Style />
+                </ChartDataLabel>
+              </ChartEmptyPoints>
+              <ValueAxisName>Primary</ValueAxisName>
+              <CategoryAxisName>Primary</CategoryAxisName>
+              <ChartSmartLabel>
+                <CalloutLineColor>Black</CalloutLineColor>
+                <MinMovingDistance>0pt</MinMovingDistance>
+              </ChartSmartLabel>
+            </ChartSeries>
+          </ChartSeriesCollection>
+        </ChartData>
+        <ChartAreas>
+          <ChartArea Name="Default">
+            <ChartCategoryAxes>
+              <ChartAxis Name="Primary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Titre de l'axe</Caption>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Enabled>False</Enabled>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+              <ChartAxis Name="Secondary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Titre de l'axe</Caption>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Enabled>False</Enabled>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Location>Opposite</Location>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+            </ChartCategoryAxes>
+            <ChartValueAxes>
+              <ChartAxis Name="Primary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Titre de l'axe</Caption>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+              <ChartAxis Name="Secondary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Titre de l'axe</Caption>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Location>Opposite</Location>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+            </ChartValueAxes>
+            <Style>
+              <BackgroundGradientType>None</BackgroundGradientType>
+            </Style>
+          </ChartArea>
+        </ChartAreas>
+        <ChartLegends>
+          <ChartLegend Name="Default">
+            <Style>
+              <BackgroundGradientType>None</BackgroundGradientType>
+              <FontSize>8pt</FontSize>
+            </Style>
+            <ChartLegendTitle>
+              <Caption />
+              <Style>
+                <FontSize>8pt</FontSize>
+                <FontWeight>Bold</FontWeight>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </ChartLegendTitle>
+            <HeaderSeparatorColor>Black</HeaderSeparatorColor>
+            <ColumnSeparatorColor>Black</ColumnSeparatorColor>
+          </ChartLegend>
+        </ChartLegends>
+        <ChartTitles>
+          <ChartTitle Name="Default">
+            <Caption>% Data allocated per database</Caption>
+            <Style>
+              <BackgroundGradientType>None</BackgroundGradientType>
+              <FontWeight>Bold</FontWeight>
+              <TextAlign>General</TextAlign>
+              <VerticalAlign>Top</VerticalAlign>
+            </Style>
+          </ChartTitle>
+        </ChartTitles>
+        <Palette>BrightPastel</Palette>
+        <ChartBorderSkin>
+          <Style>
+            <BackgroundColor>Gray</BackgroundColor>
+            <BackgroundGradientType>None</BackgroundGradientType>
+            <Color>White</Color>
+          </Style>
+        </ChartBorderSkin>
+        <ChartNoDataMessage Name="NoDataMessage">
+          <Caption>Aucune donnée disponible</Caption>
+          <Style>
+            <BackgroundGradientType>None</BackgroundGradientType>
+            <TextAlign>General</TextAlign>
+            <VerticalAlign>Top</VerticalAlign>
+          </Style>
+        </ChartNoDataMessage>
+        <DataSetName>DataAllocated</DataSetName>
+        <Top>49.5624cm</Top>
+        <Left>0.26328cm</Left>
+        <Height>5.53938cm</Height>
+        <Width>8.98711cm</Width>
+        <ZIndex>48</ZIndex>
+        <Style>
+          <Border>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
+          </Border>
+          <BackgroundColor>White</BackgroundColor>
+          <BackgroundGradientType>None</BackgroundGradientType>
+        </Style>
+      </Chart>
+      <Textbox Name="Textbox242">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Query Store</Value>
+                <Style>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>16pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>OrangeRed</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox229</rd:DefaultName>
+        <Top>41.42688cm</Top>
+        <Left>0.26085cm</Left>
+        <Height>0.78521cm</Height>
+        <Width>5.05684cm</Width>
+        <ZIndex>49</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Tablix Name="Tablix5">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>6.71631cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.96641cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>3.05537cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.91514cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.65355cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox7">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Database</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox4</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox11">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>State</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox9</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox16">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Current Storage</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox14</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox53">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Max Storage</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox51</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox55">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Mode</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -8157,14 +9195,14 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="DBName">
+                    <Textbox Name="DBName2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!DBName.Value</Value>
+                              <Value>=Fields!database_name.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -8187,14 +9225,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Database_Schema_Table">
+                    <Textbox Name="Database_Schema_Table2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Database_Schema_Table.Value</Value>
+                              <Value>=Fields!actual_state_desc.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -8217,14 +9255,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="nbrows">
+                    <Textbox Name="nbrows2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!nbrows.Value</Value>
+                              <Value>=Fields!current_storage_size_mb.Value</Value>
                               <Style>
                                 <Format>n0</Format>
                               </Style>
@@ -8249,14 +9287,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="avg_user_impact">
+                    <Textbox Name="avg_user_impact2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!avg_user_impact.Value</Value>
+                              <Value>=Fields!max_storage_size_mb.Value</Value>
                               <Style>
                                 <Format>n0</Format>
                               </Style>
@@ -8281,14 +9319,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="CreateCmd">
+                    <Textbox Name="CreateCmd2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!CreateCmd.Value</Value>
+                              <Value>=Fields!query_capture_mode_desc.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -8328,16 +9366,16 @@
               <KeepWithGroup>After</KeepWithGroup>
             </TablixMember>
             <TablixMember>
-              <Group Name="Détails4" />
+              <Group Name="Détails5" />
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>MissingIndex</DataSetName>
-        <Top>43.27856cm</Top>
-        <Left>0.25408cm</Left>
+        <DataSetName>QueryStoreEnabledDB</DataSetName>
+        <Top>43.10828cm</Top>
+        <Left>0.27104cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.32374cm</Width>
-        <ZIndex>45</ZIndex>
+        <Width>18.30678cm</Width>
+        <ZIndex>50</ZIndex>
         <Style>
           <Border>
             <Color>Orange</Color>
@@ -8345,14 +9383,14 @@
           </Border>
         </Style>
       </Tablix>
-      <Textbox Name="Textbox39">
+      <Textbox Name="Textbox41">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Top 10 Missing Indexes</Value>
+                <Value>Query Store enabled Databases (SQL 2016 and higher)</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>Underline</TextDecoration>
@@ -8363,11 +9401,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>42.53745cm</Top>
-        <Left>0.21685cm</Left>
+        <Top>42.36717cm</Top>
+        <Left>0.23381cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.16826cm</Width>
-        <ZIndex>46</ZIndex>
+        <Width>11.04205cm</Width>
+        <ZIndex>51</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -8378,12 +9416,12 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Line Name="Line8">
-        <Top>42.53745cm</Top>
-        <Left>0.23381cm</Left>
+      <Line Name="Line12">
+        <Top>42.36717cm</Top>
+        <Left>0.25077cm</Left>
         <Height>0cm</Height>
         <Width>18.41289cm</Width>
-        <ZIndex>47</ZIndex>
+        <ZIndex>52</ZIndex>
         <Style>
           <Border>
             <Color>Orange</Color>
@@ -8392,11 +9430,81 @@
           </Border>
         </Style>
       </Line>
+      <Textbox Name="Textbox3">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="(Since "+First(Fields!LogDate.Value, "ClearWaitStats")+")"</Value>
+                <Style>
+                  <FontStyle>Italic</FontStyle>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>10.4267cm</Top>
+        <Left>13.64048cm</Left>
+        <Height>0.53687cm</Height>
+        <Width>4.93734cm</Width>
+        <ZIndex>53</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox4">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="(Since " + First(Fields!LogDate.Value, "SQLLastStartDate") + ")"</Value>
+                <Style>
+                  <FontStyle>Italic</FontStyle>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>31.32451cm</Top>
+        <Left>13.64048cm</Left>
+        <Height>0.53687cm</Height>
+        <Width>4.93734cm</Width>
+        <ZIndex>54</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>70.93558cm</Height>
+    <Height>60.94455cm</Height>
     <Style />
   </Body>
-  <Width>18.8466cm</Width>
+  <Width>18.87221cm</Width>
   <Page>
     <PageHeader>
       <Height>2.56117cm</Height>
@@ -8507,7 +9615,7 @@
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
         <Line Name="Line11">
-          <Top>0.2949cm</Top>
+          <Top>0.29489cm</Top>
           <Left>0.21685cm</Left>
           <Height>0cm</Height>
           <Width>18.41289cm</Width>
@@ -8534,7 +9642,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox5</rd:DefaultName>
-          <Top>0.6124cm</Top>
+          <Top>0.61239cm</Top>
           <Left>0.29507cm</Left>
           <Height>0.6cm</Height>
           <Width>7.1099cm</Width>
@@ -8566,7 +9674,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>ExecutionTime</rd:DefaultName>
-          <Top>1.24768cm</Top>
+          <Top>1.24767cm</Top>
           <Left>0.29507cm</Left>
           <Height>0.6cm</Height>
           <Width>3.84938cm</Width>
@@ -8598,7 +9706,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>PageNumber</rd:DefaultName>
-          <Top>0.86836cm</Top>
+          <Top>0.86835cm</Top>
           <Left>8.84799cm</Left>
           <Height>0.6cm</Height>
           <Width>1.15062cm</Width>
@@ -8617,7 +9725,7 @@
           <Source>Embedded</Source>
           <Value>Datafly</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>0.41836cm</Top>
+          <Top>0.41835cm</Top>
           <Left>17.12974cm</Left>
           <Height>1.5cm</Height>
           <Width>1.5cm</Width>
@@ -8633,7 +9741,7 @@
           <Source>Embedded</Source>
           <Value>MVP_Logo_Avatar_Preferred_Cyan300_CMYK_72ppi</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>0.57197cm</Top>
+          <Top>0.57196cm</Top>
           <Left>16.00016cm</Left>
           <Height>1.23528cm</Height>
           <Width>1.12958cm</Width>
@@ -8651,7 +9759,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>SSMSInfoReports v7.0</Value>
+                  <Value>SSMSInfoReports v8.0</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
                     <FontSize>9pt</FontSize>
@@ -8681,7 +9789,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox175</rd:DefaultName>
-          <Top>0.6124cm</Top>
+          <Top>0.61239cm</Top>
           <Left>12.09302cm</Left>
           <Height>1.01466cm</Height>
           <Width>3.87186cm</Width>
@@ -8788,19 +9896,30 @@ SERVERPROPERTY('IsIntegratedSecurityOnly') AS [IsIntegratedSecurityOnly];</Comma
     <DataSet Name="SQLLastStartDate">
       <Query>
         <DataSourceName>master</DataSourceName>
-        <CommandText>EXEC xp_readerrorlog 0, 1, "SQL Server is starting"; </CommandText>
+        <CommandText>DECLARE @sqlcmd VARCHAR(MAX)
+IF EXISTS (SELECT * WHERE left(cast(serverproperty('productversion') as varchar), 1)&lt;&gt;9)
+SET @sqlcmd = 'SELECT CONVERT(VARCHAR(20), sqlserver_start_time, 20) AS LogDate FROM sys.dm_os_sys_info;'
+ELSE
+BEGIN
+SET @sqlcmd = '
+IF OBJECT_ID(''tempdb..#LogRecords'') IS NOT NULL
+    DROP TABLE #LogRecords;
+CREATE TABLE #LogRecords
+(
+    EventTime DATETIME
+  , MetaText VARCHAR(128)
+  , Message NVARCHAR(MAX)
+);
+INSERT #LogRecords
+EXEC xp_readerrorlog 0, 1, N''SQL Server is starting'';
+SELECT TOP (1) CONVERT(VARCHAR(20), EventTime,20) as LogDate FROM #LogRecords
+'
+END
+EXEC (@sqlcmd);</CommandText>
       </Query>
       <Fields>
         <Field Name="LogDate">
           <DataField>LogDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="ProcessInfo">
-          <DataField>ProcessInfo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Text">
-          <DataField>Text</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -9371,7 +10490,7 @@ SELECT
 		N'WAIT_FOR_RESULTS', N'WAITFOR', N'WAITFOR_TASKSHUTDOWN', N'WAIT_XTP_HOST_WAIT',
 		N'WAIT_XTP_OFFLINE_CKPT_NEW_LOG', N'WAIT_XTP_CKPT_CLOSE', N'WAIT_XTP_RECOVERY',
 		N'XE_BUFFERMGR_ALLPROCESSED_EVENT', N'XE_DISPATCHER_JOIN',
-        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT');
+        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT' , N'VDI_CLIENT_OTHER');
     
 WITH [Waits]
     AS (SELECT
@@ -9692,7 +10811,8 @@ END</CommandText>
     <DataSet Name="WaitStats_NoCXPACKET">
       <Query>
         <DataSourceName>master</DataSourceName>
-        <CommandText>IF OBJECT_ID ('tempdb..#Waits2') IS NOT NULL
+        <CommandText>-- Filtered list
+IF OBJECT_ID ('tempdb..#Waits2') IS NOT NULL
     BEGIN
         DROP TABLE
              #Waits2;
@@ -9726,8 +10846,8 @@ SELECT
 		N'PARALLEL_REDO_DRAIN_WORKER', N'PARALLEL_REDO_LOG_CACHE', N'PARALLEL_REDO_TRAN_LIST',
 		N'PARALLEL_REDO_WORKER_SYNC', N'PARALLEL_REDO_WORKER_WAIT_WORK',
 		N'PREEMPTIVE_HADR_LEASE_MECHANISM', N'PREEMPTIVE_SP_SERVER_DIAGNOSTICS',
-		-- preemptive
-        N'PREEMPTIVE_OS_FLUSHFILEBUFFERS', 
+		-- preemptive : filtered
+        --N'PREEMPTIVE_OS_FLUSHFILEBUFFERS', 
 		--N'PREEMPTIVE_OS_LIBRARYOPS', N'PREEMPTIVE_OS_COMOPS', N'PREEMPTIVE_OS_CRYPTOPS',
 		--N'PREEMPTIVE_OS_PIPEOPS', N'PREEMPTIVE_OS_AUTHENTICATIONOPS',
 		--N'PREEMPTIVE_OS_GENERICOPS', N'PREEMPTIVE_OS_VERIFYTRUST',
@@ -9736,7 +10856,7 @@ SELECT
 		--N'PREEMPTIVE_OS_RSFXDEVICEOPS',N'PREEMPTIVE_OS_LOADLIBRARY',
 		--N'PREEMPTIVE_OS_DELETESECURITYCONTEXT',N'PREEMPTIVE_OS_GETFILEATTRIBUTES',
 		--N'PREEMPTIVE_XE_CALLBACKEXECUTE', N'PREEMPTIVE_XE_DISPATCHER',
-		N'PREEMPTIVE_XE_GETTARGETSTATE', 
+		--N'PREEMPTIVE_XE_GETTARGETSTATE', 
 		--N'PREEMPTIVE_XE_SESSIONCOMMIT',
 		--N'PREEMPTIVE_XE_TARGETINIT', N'PREEMPTIVE_XE_TARGETFINALIZE',
 		-- suite
@@ -9756,7 +10876,8 @@ SELECT
 		N'XE_BUFFERMGR_ALLPROCESSED_EVENT', N'XE_DISPATCHER_JOIN',
         N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT',
 
-		N'CXCONSUMER', N'CXPACKET', N'TRACEWRITE', N'OLEDB', N'ASYNC_NETWORK_IO',N'VDI_CLIENT_OTHER',N'ASYNC_IO_COMPLETION')
+		N'CXCONSUMER', N'CXPACKET', N'TRACEWRITE', N'OLEDB', N'ASYNC_NETWORK_IO',N'VDI_CLIENT_OTHER',N'ASYNC_IO_COMPLETION',
+		N'BACKUPIO',N'BACKUPBUFFER',N'BACKUPTHREAD')
 		AND wait_type NOT LIKE N'PREEMPTIVE%');
     
 WITH [Waits]
@@ -9790,7 +10911,7 @@ WITH [Waits]
               ,W1.SignalS
               ,W1.WaitCount
               ,W1.Percentage
-      HAVING SUM (W2.Percentage) - W1.Percentage &lt; 95; -- percentage threshold</CommandText>
+      HAVING SUM (W2.Percentage) - W1.Percentage &lt; 95; -- percentage threshold </CommandText>
       </Query>
       <Fields>
         <Field Name="WaitType">
@@ -9849,6 +10970,7 @@ IF OBJECT_ID ('tempdb..#MissingIndex') IS NOT NULL
              #MissingIndex
     END;
 CREATE TABLE #MissingIndex  (
+    [Id] INT IDENTITY,
 	[DBName] [nvarchar](128) NULL,
 	[index_advantage] decimal(18,2) NULL,
 	[last_user_seek] [datetime] NULL,
@@ -9985,7 +11107,8 @@ WHILE @@FETCH_STATUS = 0
 CLOSE TablesCursor;
 DEALLOCATE TablesCursor;
 
-SELECT DBName,
+SELECT Id,
+	   DBName,
        index_advantage,
        last_user_seek,
        last_user_scan,
@@ -10002,13 +11125,16 @@ SELECT DBName,
        user_scans,
        avg_total_user_cost,
        avg_user_impact,
-       CreateCmd FROM #MissingIndex
-</CommandText>
+       CreateCmd FROM #MissingIndex</CommandText>
       </Query>
       <Fields>
         <Field Name="DBName">
           <DataField>DBName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="index_advantage">
           <DataField>index_advantage</DataField>
@@ -10076,6 +11202,135 @@ SELECT DBName,
         </Field>
         <Field Name="CreateCmd">
           <DataField>CreateCmd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataAllocated">
+      <Query>
+        <DataSourceName>master</DataSourceName>
+        <CommandText>SET NOCOUNT ON;
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+IF OBJECT_ID('tempdb..#FileStorage') IS NOT NULL
+    BEGIN
+        DROP TABLE
+             #FileStorage;
+    END;
+
+CREATE TABLE #FileStorage
+    (
+     database_id INT NULL
+    ,[File Space Used (MB)] DECIMAL(18, 2) NULL
+    )
+
+EXEC sp_MSforeachdb '
+USE [?]
+INSERT  #FileStorage
+        SELECT  DB_ID() AS database_id
+               ,CONVERT(DECIMAL(18, 2), ROUND(FILEPROPERTY(a.name, ''SpaceUsed'')
+                                              / 128.000, 2)) AS [File Space Used (MB)]
+        FROM    sys.database_files a ( NOLOCK )
+		WHERE type = 0
+'
+SELECT 
+        db.database_id
+       ,db.name  AS [Database Name]
+       ,SUM([File Space Used (MB)]) AS DataAllocated
+	   ,SUM([File Space Used (MB)]) / SUM(SUM([File Space Used (MB)])) OVER () *100 AS PercentAllocated
+FROM    sys.databases AS db WITH ( NOLOCK )
+        FULL JOIN #FileStorage mf ON db.database_id = mf.database_id
+GROUP BY db.database_id, db.name
+ORDER BY DataAllocated DESC
+OPTION  ( RECOMPILE );</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="database_id">
+          <DataField>database_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Database_Name">
+          <DataField>Database Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DataAllocated">
+          <DataField>DataAllocated</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PercentAllocated">
+          <DataField>PercentAllocated</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="QueryStoreEnabledDB">
+      <Query>
+        <DataSourceName>master</DataSourceName>
+        <CommandText>SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+IF OBJECT_ID('tempdb..#QueryStoreDB') IS NOT NULL DROP TABLE #QueryStoreDB
+CREATE TABLE #QueryStoreDB(
+	[database_name] [nvarchar](128) NULL,
+	[actual_state_desc] [nvarchar](60) NULL,
+	[current_storage_size_mb] [BIGINT] NULL,
+	[max_storage_size_mb] [BIGINT] NULL,
+	[query_capture_mode_desc] [NVARCHAR](60) NULL
+) 
+DECLARE @sqlcmd VARCHAR(MAX)
+IF EXISTS (SELECT * WHERE CONVERT(varchar(128), SERVERPROPERTY('ProductVersion')) &gt;=  '13' and left(cast(serverproperty('productversion') as varchar), 1)&lt;'7')
+BEGIN
+-- Query store : sql server 2016
+DECLARE @foreachdbcmd VARCHAR(MAX)
+SET @foreachdbcmd = 'IF ''?'' NOT IN (SELECT name FROM sys.databases WHERE is_query_store_on = 0)
+BEGIN
+USE [?] 
+INSERT #QueryStoreDB SELECT DB_NAME() database_name,actual_state_desc,current_storage_size_mb,max_storage_size_mb,query_capture_mode_desc 
+FROM sys.database_query_store_options;'
+SET @foreachdbcmd = @foreachdbcmd + ' END'
+EXEC sys.sp_MSforeachdb @foreachdbcmd 
+END
+SELECT database_name
+     , actual_state_desc
+     , current_storage_size_mb
+     , max_storage_size_mb
+     , query_capture_mode_desc FROM #QueryStoreDB
+ORDER BY database_name</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="database_name">
+          <DataField>database_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="actual_state_desc">
+          <DataField>actual_state_desc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="current_storage_size_mb">
+          <DataField>current_storage_size_mb</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="max_storage_size_mb">
+          <DataField>max_storage_size_mb</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="query_capture_mode_desc">
+          <DataField>query_capture_mode_desc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="ClearWaitStats">
+      <Query>
+        <DataSourceName>master</DataSourceName>
+        <CommandText>DECLARE @sqlcmd VARCHAR(MAX)
+IF EXISTS (SELECT * WHERE CONVERT(varchar(128), SERVERPROPERTY('ProductVersion')) &gt;=  '10.50' and left(cast(serverproperty('productversion') as varchar), 1)&lt;'7')
+   SET @sqlcmd = 'SELECT DATEADD(s,-[wait_time_ms]/1000,GETDATE()) AS [LogDate] FROM [sys].[dm_os_wait_stats] WHERE [wait_type] = ''SQLTRACE_INCREMENTAL_FLUSH_SLEEP'''
+ELSE
+ SET @sqlcmd = 'SELECT ''?'' AS LogDate'
+EXEC (@sqlcmd);</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="LogDate">
+          <DataField>LogDate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

@@ -229,7 +229,7 @@ WHERE   job.name = @ObjectName</CommandText>
 SELECT  step_id ,
         step_name ,
         subsystem ,
-        LEFT(command, 300) + ' ...' AS command
+        LEFT(command, 800) + CASE WHEN LEN(command) &gt; 800 THEN ' ...' ELSE '' END AS command
 FROM    msdb.dbo.sysjobsteps steps
         JOIN msdb.dbo.sysjobs jobs ON steps.job_id = jobs.job_id
 WHERE   jobs.name = @ObjectName</CommandText>
@@ -4808,7 +4808,7 @@ ORDER BY exec_id DESC
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>SSMSInfoReports v7.0</Value>
+                      <Value>SSMSInfoReports v8.0</Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontSize>9pt</FontSize>

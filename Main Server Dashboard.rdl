@@ -159,7 +159,7 @@ INSERT  #FileStorage
 SELECT 
 -- database section
         db.database_id
-       ,db.name AS [Database Name]
+       ,db.name  AS [Database Name]
        ,SUM(mf.[File Size (MB)]) OVER ( PARTITION BY db.database_id ) AS [Total Size (MB)]
        ,SUM(CASE WHEN mf.[File Usage] = 'LOG' THEN 0
                  ELSE [File Size (MB)]
@@ -197,7 +197,7 @@ SELECT
        ,SUM(CASE WHEN mf.[File Usage] &lt;&gt; 'LOG' THEN 0
                  ELSE [File Growth (MB)]
             END) OVER ( PARTITION BY db.database_id ) AS [Log Growth (MB)]
-       ,db.recovery_model_desc AS [Recovery Model]
+       ,db.recovery_model_desc +CASE WHEN db.source_database_id IS NOT NULL THEN ' (DBSnapshot)' WHEN db.is_read_only = 1 THEN ' (ReadOnly)' ELSE '' END AS [Recovery Model]
        ,db.log_reuse_wait_desc AS [Log Reuse Wait Description]
        ,db.compatibility_level AS [DB Compatibility Level]
        ,db.page_verify_option_desc AS [Page Verify Option]
@@ -209,6 +209,10 @@ SELECT
        ,db.is_read_committed_snapshot_on
        ,db.is_auto_close_on
        ,db.is_auto_shrink_on
+	   ,CASE WHEN db.source_database_id IS NOT NULL THEN 1 ELSE 0 END AS is_db_snapshot
+      ,CASE WHEN db.source_database_id IS NOT NULL THEN ' (DBSnapshot of '+DB_NAME(db.source_database_id)+')' ELSE '' END AS SnapshotOf
+	   ,db.is_read_only
+	   ,db.state_desc
        -- files section
 	   ,mf.sort_id
        ,mf.file_id
@@ -229,8 +233,7 @@ ORDER BY mf.sort_id,
        ,mf.[File Usage] ASC
        ,mf.[File Group] ASC
        ,mf.file_id
-OPTION  ( RECOMPILE );
-</CommandText>
+OPTION  ( RECOMPILE );</CommandText>
       </Query>
       <Fields>
         <Field Name="database_id">
@@ -336,6 +339,22 @@ OPTION  ( RECOMPILE );
         <Field Name="file_id">
           <DataField>file_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="is_db_snapshot">
+          <DataField>is_db_snapshot</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SnapshotOf">
+          <DataField>SnapshotOf</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="is_read_only">
+          <DataField>is_read_only</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="state_desc">
+          <DataField>state_desc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="sort_id">
           <DataField>sort_id</DataField>
@@ -601,7 +620,7 @@ N'CXCONSUMER',
 		N'WAIT_FOR_RESULTS', N'WAITFOR', N'WAITFOR_TASKSHUTDOWN', N'WAIT_XTP_HOST_WAIT',
 		N'WAIT_XTP_OFFLINE_CKPT_NEW_LOG', N'WAIT_XTP_CKPT_CLOSE', N'WAIT_XTP_RECOVERY',
 		N'XE_BUFFERMGR_ALLPROCESSED_EVENT', N'XE_DISPATCHER_JOIN',
-        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT');
+        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT', N'VDI_CLIENT_OTHER');
     
 WITH [Waits]
     AS (SELECT
@@ -697,7 +716,7 @@ DECLARE
 DECLARE
    @NumErrorLogs int;
 SET @count = 0;
-SET @LastLog = 0; -- only last errorlog for this report
+SET @LastLog = 1; -- only 2 lasts errorlogs for this report
 WHILE @count &lt;= @LastLog
     BEGIN
         INSERT INTO #ErrorLogParsing (
@@ -758,7 +777,7 @@ DELETE FROM #ErrorLogParsing
         Log_Entry LIKE '%18456%'
      OR Log_Entry LIKE 'Login failed%';
 
-SELECT DISTINCT TOP (30)  -- only 30 first results for this report
+SELECT DISTINCT TOP (50)  -- only 50 first results for this report
        LogDate
       ,ProcessInfo
       ,SUBSTRING (Log_Entry,1,75) + CASE
@@ -928,6 +947,167 @@ END</CommandText>
         <Field Name="AgentXP">
           <DataField>AgentXP</DataField>
           <rd:TypeName>System.Object</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="WaitStatsFiltered">
+      <Query>
+        <DataSourceName>master</DataSourceName>
+        <CommandText>-- Filtered list
+IF OBJECT_ID ('tempdb..#Waits2') IS NOT NULL
+    BEGIN
+        DROP TABLE
+             #Waits2;
+    END;
+
+SELECT
+       wait_type
+      ,wait_time_ms / 1000.0 AS WaitS
+      ,(wait_time_ms - signal_wait_time_ms) / 1000.0 AS ResourceS
+      ,signal_wait_time_ms / 1000.0 AS SignalS
+      ,waiting_tasks_count AS WaitCount
+      ,100.0 * wait_time_ms / SUM (wait_time_ms) OVER () AS Percentage
+      ,ROW_NUMBER () OVER (ORDER BY wait_time_ms DESC) AS RowNum INTO
+                                                                      #Waits2
+  FROM sys.dm_os_wait_stats
+  WHERE waiting_tasks_count &gt; 0 AND (wait_type NOT IN 
+(
+        N'BROKER_EVENTHANDLER', N'BROKER_RECEIVE_WAITFOR', N'BROKER_TASK_STOP',
+		N'BROKER_TO_FLUSH', N'BROKER_TRANSMITTER', N'CHECKPOINT_QUEUE',
+        N'CHKPT', N'CLR_AUTO_EVENT', N'CLR_MANUAL_EVENT', N'CLR_SEMAPHORE', 
+		-- mirroring
+        N'DBMIRROR_DBM_EVENT', N'DBMIRROR_EVENTS_QUEUE', N'DBMIRROR_WORKER_QUEUE',
+		N'DBMIRRORING_CMD', N'DIRTY_PAGE_POLL', N'DISPATCHER_QUEUE_SEMAPHORE',
+        N'EXECSYNC', N'FSAGENT', N'FT_IFTS_SCHEDULER_IDLE_WAIT', N'FT_IFTSHC_MUTEX',
+		-- hadr
+        N'HADR_CLUSAPI_CALL', N'HADR_FILESTREAM_IOMGR_IOCOMPLETION', N'HADR_LOGCAPTURE_WAIT', 
+		N'HADR_NOTIFICATION_DEQUEUE', N'HADR_TIMER_TASK', N'HADR_WORK_QUEUE',
+
+        N'KSOURCE_WAKEUP', N'LAZYWRITER_SLEEP', N'LOGMGR_QUEUE', 
+		N'MEMORY_ALLOCATION_EXT', N'ONDEMAND_TASK_QUEUE',
+		N'PARALLEL_REDO_DRAIN_WORKER', N'PARALLEL_REDO_LOG_CACHE', N'PARALLEL_REDO_TRAN_LIST',
+		N'PARALLEL_REDO_WORKER_SYNC', N'PARALLEL_REDO_WORKER_WAIT_WORK',
+		N'PREEMPTIVE_HADR_LEASE_MECHANISM', N'PREEMPTIVE_SP_SERVER_DIAGNOSTICS',
+		-- preemptive : filtered
+        --N'PREEMPTIVE_OS_FLUSHFILEBUFFERS', 
+		--N'PREEMPTIVE_OS_LIBRARYOPS', N'PREEMPTIVE_OS_COMOPS', N'PREEMPTIVE_OS_CRYPTOPS',
+		--N'PREEMPTIVE_OS_PIPEOPS', N'PREEMPTIVE_OS_AUTHENTICATIONOPS',
+		--N'PREEMPTIVE_OS_GENERICOPS', N'PREEMPTIVE_OS_VERIFYTRUST',
+		--N'PREEMPTIVE_OS_FILEOPS', N'PREEMPTIVE_OS_DEVICEOPS', N'PREEMPTIVE_OS_QUERYREGISTRY',
+		--N'PREEMPTIVE_OS_WRITEFILE', N'PREEMPTIVE_OS_WRITEFILEGATHER', 
+		--N'PREEMPTIVE_OS_RSFXDEVICEOPS',N'PREEMPTIVE_OS_LOADLIBRARY',
+		--N'PREEMPTIVE_OS_DELETESECURITYCONTEXT',N'PREEMPTIVE_OS_GETFILEATTRIBUTES',
+		--N'PREEMPTIVE_XE_CALLBACKEXECUTE', N'PREEMPTIVE_XE_DISPATCHER',
+		--N'PREEMPTIVE_XE_GETTARGETSTATE', 
+		--N'PREEMPTIVE_XE_SESSIONCOMMIT',
+		--N'PREEMPTIVE_XE_TARGETINIT', N'PREEMPTIVE_XE_TARGETFINALIZE',
+		-- suite
+        N'PWAIT_ALL_COMPONENTS_INITIALIZED', N'PWAIT_DIRECTLOGCONSUMER_GETNEXT',
+		N'PWAIT_EXTENSIBILITY_CLEANUP_TASK',
+		N'QDS_PERSIST_TASK_MAIN_LOOP_SLEEP', N'QDS_ASYNC_QUEUE',
+        N'QDS_CLEANUP_STALE_QUERIES_TASK_MAIN_LOOP_SLEEP', N'REQUEST_FOR_DEADLOCK_SEARCH',
+		N'RESOURCE_QUEUE', N'SERVER_IDLE_CHECK', N'SLEEP_BPOOL_FLUSH', N'SLEEP_DBSTARTUP',
+		N'SLEEP_DCOMSTARTUP', N'SLEEP_MASTERDBREADY', N'SLEEP_MASTERMDREADY',
+        N'SLEEP_MASTERUPGRADED', N'SLEEP_MSDBSTARTUP', N'SLEEP_SYSTEMTASK', N'SLEEP_TASK',
+        N'SLEEP_TEMPDBSTARTUP', N'SNI_HTTP_ACCEPT', N'SOS_WORK_DISPATCHER',
+		N'SP_SERVER_DIAGNOSTICS_SLEEP',
+		N'SQLTRACE_BUFFER_FLUSH', N'SQLTRACE_INCREMENTAL_FLUSH_SLEEP', N'SQLTRACE_WAIT_ENTRIES',
+		N'STARTUP_DEPENDENCY_MANAGER',
+		N'WAIT_FOR_RESULTS', N'WAITFOR', N'WAITFOR_TASKSHUTDOWN', N'WAIT_XTP_HOST_WAIT',
+		N'WAIT_XTP_OFFLINE_CKPT_NEW_LOG', N'WAIT_XTP_CKPT_CLOSE', N'WAIT_XTP_RECOVERY',
+		N'XE_BUFFERMGR_ALLPROCESSED_EVENT', N'XE_DISPATCHER_JOIN',
+        N'XE_DISPATCHER_WAIT', N'XE_LIVE_TARGET_TVF', N'XE_TIMER_EVENT',
+
+		N'CXCONSUMER', N'CXPACKET', N'TRACEWRITE', N'OLEDB', N'ASYNC_NETWORK_IO',N'VDI_CLIENT_OTHER',N'ASYNC_IO_COMPLETION',
+		N'BACKUPIO',N'BACKUPBUFFER',N'BACKUPTHREAD')
+		AND wait_type NOT LIKE N'PREEMPTIVE%');
+    
+WITH [Waits]
+    AS (SELECT
+               wait_type
+              ,WaitS
+              ,ResourceS
+              ,SignalS
+              ,WaitCount
+              ,Percentage
+              ,RowNum
+          FROM #Waits2) 
+    SELECT
+           W1.wait_type AS WaitType
+          ,CAST (W1.WaitS AS decimal (16,2)) AS Wait_S
+          ,CAST (W1.ResourceS AS decimal (16,2)) AS Resource_S
+          ,CAST (W1.SignalS AS decimal (16,2)) AS Signal_S
+          ,W1.WaitCount AS WaitCount
+          ,CAST (W1.Percentage AS decimal (5,2)) AS Percentage
+          ,CAST (W1.WaitS / W1.WaitCount AS decimal (16,4)) AS AvgWait_S
+          ,CAST (W1.ResourceS / W1.WaitCount AS decimal (16,4)) AS AvgRes_S
+          ,CAST (W1.SignalS / W1.WaitCount AS decimal (16,4)) AS AvgSig_S
+      FROM
+           Waits AS W1 INNER JOIN Waits AS W2
+           ON W2.RowNum &lt;= W1.RowNum
+      GROUP BY
+               W1.RowNum
+              ,W1.wait_type
+              ,W1.WaitS
+              ,W1.ResourceS
+              ,W1.SignalS
+              ,W1.WaitCount
+              ,W1.Percentage
+      HAVING SUM (W2.Percentage) - W1.Percentage &lt; 95; -- percentage threshold</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="WaitType">
+          <DataField>WaitType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Wait_S">
+          <DataField>Wait_S</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Resource_S">
+          <DataField>Resource_S</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Signal_S">
+          <DataField>Signal_S</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="WaitCount">
+          <DataField>WaitCount</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="Percentage">
+          <DataField>Percentage</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AvgWait_S">
+          <DataField>AvgWait_S</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AvgRes_S">
+          <DataField>AvgRes_S</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AvgSig_S">
+          <DataField>AvgSig_S</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="ClearWaitStats">
+      <Query>
+        <DataSourceName>master</DataSourceName>
+        <CommandText>DECLARE @sqlcmd VARCHAR(MAX)
+IF EXISTS (SELECT * WHERE CONVERT(varchar(128), SERVERPROPERTY('ProductVersion')) &gt;=  '10.50' and left(cast(serverproperty('productversion') as varchar), 1)&lt;'7')
+   SET @sqlcmd = 'SELECT DATEADD(s,-[wait_time_ms]/1000,GETDATE()) AS [LogDate] FROM [sys].[dm_os_wait_stats] WHERE [wait_type] = ''SQLTRACE_INCREMENTAL_FLUSH_SLEEP'''
+ELSE
+ SET @sqlcmd = 'SELECT ''?'' AS LogDate'
+EXEC (@sqlcmd);</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="LogDate">
+          <DataField>LogDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -1145,9 +1325,11 @@ END</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Database_Name.Value</Value>
+                                  <Value>=Fields!Database_Name.Value + Fields!SnapshotOf.Value + iif(Fields!state_desc.Value&lt;&gt;"ONLINE"," ("+Fields!state_desc.Value+")","")</Value>
                                   <Style>
                                     <TextDecoration>Underline</TextDecoration>
+                                    <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1193,7 +1375,10 @@ END</CommandText>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Min(Fields!database_id.Value)</Value>
-                                  <Style />
+                                  <Style>
+                                    <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1223,7 +1408,10 @@ END</CommandText>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Recovery_Model.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Color>=iif(Fields!is_db_snapshot.Value = 1 Or Fields!is_read_only.Value,"Blue",
+iif(Fields!state_desc.Value = "ONLINE","Black","Red"))</Color>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4369,10 +4557,10 @@ END</CommandText>
               </Style>
             </ChartNoDataMessage>
             <DataSetName>WaitStats</DataSetName>
-            <Top>16.01138cm</Top>
+            <Top>15.94082cm</Top>
             <Left>0.13692cm</Left>
             <Height>5cm</Height>
-            <Width>18.41289cm</Width>
+            <Width>8.93655cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
               <Border>
@@ -5555,10 +5743,10 @@ END</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.2008cm</Top>
-            <Left>4.21551cm</Left>
+            <Top>12.16553cm</Top>
+            <Left>4.3919cm</Left>
             <Height>0.651cm</Height>
-            <Width>8.41791cm</Width>
+            <Width>8.02104cm</Width>
             <ZIndex>24</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Fields!AgentXP.Value, "AgentXP")=0,false,true)</Hidden>
@@ -5605,8 +5793,13 @@ END</CommandText>
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>Always On HADR</Value>
-                        <Style />
+                        <Value>Always On </Value>
+                        <Style>
+                          <FontFamily>Tahoma</FontFamily>
+                          <FontSize>12pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>OrangeRed</Color>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -5615,8 +5808,8 @@ END</CommandText>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox2</rd:DefaultName>
-                <Top>0.11647cm</Top>
-                <Height>0.64364cm</Height>
+                <Top>0.02128cm</Top>
+                <Height>0.73883cm</Height>
                 <Width>3.17279cm</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
@@ -5657,6 +5850,8 @@ END</CommandText>
                       <TextRun>
                         <Value>Jobs history planning</Value>
                         <Style>
+                          <FontFamily>Tahoma</FontFamily>
+                          <FontSize>12pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                           <Color>OrangeRed</Color>
                         </Style>
@@ -5668,10 +5863,8 @@ END</CommandText>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox2</rd:DefaultName>
-                <Top>0.10224cm</Top>
-                <Left>0.01332cm</Left>
-                <Height>0.64364cm</Height>
-                <Width>3.95879cm</Width>
+                <Height>0.84014cm</Height>
+                <Width>4.8989cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -5696,8 +5889,8 @@ END</CommandText>
                     </Action>
                   </Actions>
                 </ActionInfo>
-                <Top>0.01561cm</Top>
-                <Left>4.06912cm</Left>
+                <Top>0.05493cm</Top>
+                <Left>5.07529cm</Left>
                 <Height>0.78521cm</Height>
                 <Width>0.79154cm</Width>
                 <ZIndex>1</ZIndex>
@@ -5710,10 +5903,10 @@ END</CommandText>
               </Image>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>12.00009cm</Top>
-            <Left>13.33972cm</Left>
-            <Height>0.81644cm</Height>
-            <Width>5.04211cm</Width>
+            <Top>11.99604cm</Top>
+            <Left>12.33355cm</Left>
+            <Height>0.85576cm</Height>
+            <Width>6.04828cm</Width>
             <ZIndex>26</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Fields!AgentXP.Value, "AgentXP")=0,true,false)</Hidden>
@@ -5729,7 +5922,7 @@ END</CommandText>
             <Top>0.26141cm</Top>
             <Left>5.52662cm</Left>
             <Height>0.65381cm</Height>
-            <Width>7.12887cm</Width>
+            <Width>0.85825cm</Width>
             <ZIndex>27</ZIndex>
             <Style>
               <Border>
@@ -5737,8 +5930,402 @@ END</CommandText>
               </Border>
             </Style>
           </Rectangle>
+          <Chart Name="Chart6">
+            <ChartCategoryHierarchy>
+              <ChartMembers>
+                <ChartMember>
+                  <Group Name="Chart5_CategoryGroup2">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!WaitType.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Percentage.Value</Value>
+                      <Direction>Descending</Direction>
+                    </SortExpression>
+                  </SortExpressions>
+                  <Label>=Fields!WaitType.Value</Label>
+                </ChartMember>
+              </ChartMembers>
+            </ChartCategoryHierarchy>
+            <ChartSeriesHierarchy>
+              <ChartMembers>
+                <ChartMember>
+                  <Label>Percentage</Label>
+                </ChartMember>
+              </ChartMembers>
+            </ChartSeriesHierarchy>
+            <ChartData>
+              <ChartSeriesCollection>
+                <ChartSeries Name="Percentage">
+                  <ChartDataPoints>
+                    <ChartDataPoint>
+                      <ChartDataPointValues>
+                        <Y>=Sum(Fields!Percentage.Value)</Y>
+                      </ChartDataPointValues>
+                      <ChartDataLabel>
+                        <Style />
+                        <UseValueAsLabel>true</UseValueAsLabel>
+                      </ChartDataLabel>
+                      <ToolTip>=Fields!WaitType.Value + " : " + Microsoft.VisualBasic.Conversion.str(Sum(Fields!Percentage.Value)) + "%"</ToolTip>
+                      <Style />
+                      <ChartMarker>
+                        <Style />
+                      </ChartMarker>
+                      <DataElementOutput>Output</DataElementOutput>
+                    </ChartDataPoint>
+                  </ChartDataPoints>
+                  <Type>Shape</Type>
+                  <Subtype>Doughnut</Subtype>
+                  <Style />
+                  <ChartEmptyPoints>
+                    <Style />
+                    <ChartMarker>
+                      <Style />
+                    </ChartMarker>
+                    <ChartDataLabel>
+                      <Style />
+                    </ChartDataLabel>
+                  </ChartEmptyPoints>
+                  <ValueAxisName>Primary</ValueAxisName>
+                  <CategoryAxisName>Primary</CategoryAxisName>
+                  <ChartSmartLabel>
+                    <CalloutLineColor>Black</CalloutLineColor>
+                    <MinMovingDistance>0pt</MinMovingDistance>
+                  </ChartSmartLabel>
+                </ChartSeries>
+              </ChartSeriesCollection>
+            </ChartData>
+            <ChartAreas>
+              <ChartArea Name="Default">
+                <ChartCategoryAxes>
+                  <ChartAxis Name="Primary">
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                    <ChartAxisTitle>
+                      <Caption>Titre de l'axe</Caption>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </ChartAxisTitle>
+                    <ChartMajorGridLines>
+                      <Enabled>False</Enabled>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                        </Border>
+                      </Style>
+                    </ChartMajorGridLines>
+                    <ChartMinorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                          <Style>Dotted</Style>
+                        </Border>
+                      </Style>
+                    </ChartMinorGridLines>
+                    <ChartMinorTickMarks>
+                      <Length>0.5</Length>
+                    </ChartMinorTickMarks>
+                    <CrossAt>NaN</CrossAt>
+                    <Minimum>NaN</Minimum>
+                    <Maximum>NaN</Maximum>
+                    <ChartAxisScaleBreak>
+                      <Style />
+                    </ChartAxisScaleBreak>
+                  </ChartAxis>
+                  <ChartAxis Name="Secondary">
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                    <ChartAxisTitle>
+                      <Caption>Titre de l'axe</Caption>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </ChartAxisTitle>
+                    <ChartMajorGridLines>
+                      <Enabled>False</Enabled>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                        </Border>
+                      </Style>
+                    </ChartMajorGridLines>
+                    <ChartMinorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                          <Style>Dotted</Style>
+                        </Border>
+                      </Style>
+                    </ChartMinorGridLines>
+                    <ChartMinorTickMarks>
+                      <Length>0.5</Length>
+                    </ChartMinorTickMarks>
+                    <CrossAt>NaN</CrossAt>
+                    <Location>Opposite</Location>
+                    <Minimum>NaN</Minimum>
+                    <Maximum>NaN</Maximum>
+                    <ChartAxisScaleBreak>
+                      <Style />
+                    </ChartAxisScaleBreak>
+                  </ChartAxis>
+                </ChartCategoryAxes>
+                <ChartValueAxes>
+                  <ChartAxis Name="Primary">
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                    <ChartAxisTitle>
+                      <Caption>Titre de l'axe</Caption>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </ChartAxisTitle>
+                    <ChartMajorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                        </Border>
+                      </Style>
+                    </ChartMajorGridLines>
+                    <ChartMinorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                          <Style>Dotted</Style>
+                        </Border>
+                      </Style>
+                    </ChartMinorGridLines>
+                    <ChartMinorTickMarks>
+                      <Length>0.5</Length>
+                    </ChartMinorTickMarks>
+                    <CrossAt>NaN</CrossAt>
+                    <Minimum>NaN</Minimum>
+                    <Maximum>NaN</Maximum>
+                    <ChartAxisScaleBreak>
+                      <Style />
+                    </ChartAxisScaleBreak>
+                  </ChartAxis>
+                  <ChartAxis Name="Secondary">
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                    <ChartAxisTitle>
+                      <Caption>Titre de l'axe</Caption>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </ChartAxisTitle>
+                    <ChartMajorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                        </Border>
+                      </Style>
+                    </ChartMajorGridLines>
+                    <ChartMinorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                          <Style>Dotted</Style>
+                        </Border>
+                      </Style>
+                    </ChartMinorGridLines>
+                    <ChartMinorTickMarks>
+                      <Length>0.5</Length>
+                    </ChartMinorTickMarks>
+                    <CrossAt>NaN</CrossAt>
+                    <Location>Opposite</Location>
+                    <Minimum>NaN</Minimum>
+                    <Maximum>NaN</Maximum>
+                    <ChartAxisScaleBreak>
+                      <Style />
+                    </ChartAxisScaleBreak>
+                  </ChartAxis>
+                </ChartValueAxes>
+                <Style>
+                  <BackgroundGradientType>None</BackgroundGradientType>
+                </Style>
+              </ChartArea>
+            </ChartAreas>
+            <ChartLegends>
+              <ChartLegend Name="Default">
+                <Style>
+                  <BackgroundGradientType>None</BackgroundGradientType>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <Position>RightCenter</Position>
+                <DockOutsideChartArea>true</DockOutsideChartArea>
+                <ChartLegendTitle>
+                  <Caption />
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </ChartLegendTitle>
+                <HeaderSeparatorColor>Black</HeaderSeparatorColor>
+                <ColumnSeparatorColor>Black</ColumnSeparatorColor>
+              </ChartLegend>
+            </ChartLegends>
+            <ChartTitles>
+              <ChartTitle Name="Default">
+                <Caption>SQL Server Wait Statistics (filtered)</Caption>
+                <Style>
+                  <BackgroundGradientType>None</BackgroundGradientType>
+                  <FontWeight>Bold</FontWeight>
+                  <TextAlign>General</TextAlign>
+                  <VerticalAlign>Top</VerticalAlign>
+                </Style>
+              </ChartTitle>
+            </ChartTitles>
+            <Palette>BrightPastel</Palette>
+            <ChartBorderSkin>
+              <Style>
+                <BackgroundColor>Gray</BackgroundColor>
+                <BackgroundGradientType>None</BackgroundGradientType>
+                <Color>White</Color>
+              </Style>
+            </ChartBorderSkin>
+            <ChartNoDataMessage Name="NoDataMessage">
+              <Caption>Aucune donnée disponible</Caption>
+              <Style>
+                <BackgroundGradientType>None</BackgroundGradientType>
+                <TextAlign>General</TextAlign>
+                <VerticalAlign>Top</VerticalAlign>
+              </Style>
+            </ChartNoDataMessage>
+            <DataSetName>WaitStatsFiltered</DataSetName>
+            <Top>15.94082cm</Top>
+            <Left>9.66995cm</Left>
+            <Height>5cm</Height>
+            <Width>8.87986cm</Width>
+            <ZIndex>28</ZIndex>
+            <Style>
+              <Border>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
+              </Border>
+              <BackgroundColor>White</BackgroundColor>
+              <BackgroundGradientType>None</BackgroundGradientType>
+            </Style>
+          </Chart>
+          <Rectangle Name="Rectangle10">
+            <ReportItems>
+              <Image Name="ServerReportLink8">
+                <Source>Embedded</Source>
+                <Value>Button</Value>
+                <Sizing>FitProportional</Sizing>
+                <ActionInfo>
+                  <Actions>
+                    <Action>
+                      <Drillthrough>
+                        <ReportName>Server Security Report</ReportName>
+                      </Drillthrough>
+                    </Action>
+                  </Actions>
+                </ActionInfo>
+                <Left>3.34918cm</Left>
+                <Height>0.78521cm</Height>
+                <Width>0.79154cm</Width>
+                <ToolTip>Click for more details</ToolTip>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </Image>
+              <Textbox Name="Textbox4">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Security</Value>
+                        <Style>
+                          <FontFamily>Tahoma</FontFamily>
+                          <FontSize>12pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>OrangeRed</Color>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox2</rd:DefaultName>
+                <Top>0.02127cm</Top>
+                <Height>0.72866cm</Height>
+                <Width>3.17279cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>0.15512cm</Top>
+            <Left>9.60559cm</Left>
+            <Height>0.78521cm</Height>
+            <Width>4.27807cm</Width>
+            <ZIndex>29</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Textbox Name="Textbox6">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="(Since " + First(Fields!LogDate.Value, "ClearWaitStats") + ")"</Value>
+                    <Style>
+                      <FontStyle>Italic</FontStyle>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox3</rd:DefaultName>
+            <Top>20.94082cm</Top>
+            <Left>14.13904cm</Left>
+            <Height>0.61624cm</Height>
+            <Width>4.38062cm</Width>
+            <ZIndex>30</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>21.01138cm</Height>
+        <Height>21.59234cm</Height>
         <Style />
       </Body>
       <Width>18.7008cm</Width>
@@ -5847,12 +6434,12 @@ END</CommandText>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>2.67849cm</Height>
+          <Height>1.85251cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Line Name="Line10">
-              <Top>0.52889cm</Top>
+              <Top>0.28195cm</Top>
               <Left>0.28791cm</Left>
               <Height>0cm</Height>
               <Width>18.41289cm</Width>
@@ -5879,7 +6466,7 @@ END</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>0.84639cm</Top>
+              <Top>0.59945cm</Top>
               <Left>0.36613cm</Left>
               <Height>0.6cm</Height>
               <Width>7.1099cm</Width>
@@ -5911,7 +6498,7 @@ END</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>1.48167cm</Top>
+              <Top>1.23473cm</Top>
               <Left>0.36613cm</Left>
               <Height>0.6cm</Height>
               <Width>3.84938cm</Width>
@@ -5943,7 +6530,7 @@ END</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
-              <Top>1.03925cm</Top>
+              <Top>0.79231cm</Top>
               <Left>8.92469cm</Left>
               <Height>0.6cm</Height>
               <Width>1.15062cm</Width>
@@ -5962,7 +6549,7 @@ END</CommandText>
               <Source>Embedded</Source>
               <Value>Datafly</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.59945cm</Top>
+              <Top>0.35251cm</Top>
               <Left>17.15585cm</Left>
               <Height>1.5cm</Height>
               <Width>1.5cm</Width>
@@ -5978,7 +6565,7 @@ END</CommandText>
               <Source>Embedded</Source>
               <Value>MVP_Logo_Avatar_Preferred_Cyan300_CMYK_72ppi</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.75306cm</Top>
+              <Top>0.50612cm</Top>
               <Left>16.02627cm</Left>
               <Height>1.23528cm</Height>
               <Width>1.12958cm</Width>
@@ -5996,7 +6583,7 @@ END</CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>SSMSInfoReports v7.0</Value>
+                      <Value>SSMSInfoReports v8.0</Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontSize>9pt</FontSize>
@@ -6026,7 +6613,7 @@ END</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox175</rd:DefaultName>
-              <Top>0.75306cm</Top>
+              <Top>0.50612cm</Top>
               <Left>12.18969cm</Left>
               <Height>1.01466cm</Height>
               <Width>3.76602cm</Width>
